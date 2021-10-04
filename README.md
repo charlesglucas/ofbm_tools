@@ -14,11 +14,8 @@ The following matlab package is required: [WLBMF](https://www.irit.fr/~Herwig.We
 The basic syntax to run OFBM tools is as follows:
 
 ```
-% return self-similarity exponent estimates
-[est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
-
 paramsEst = params;
-paramsEstEst.Nwt = 2 ;
+paramsEst.Nwt = 2 ;
 paramsEst.j1 = 5;
 paramsEst.j2 = 10;
 paramsEst.Jref = paramsEst.j2 ;
@@ -26,6 +23,10 @@ paramsEst.FigNum = 10 ;
 paramsEst.wtype = 1 ;
 paramsEst.NB = 0;
 paramsEst.LB = 0;
+% return self-similarity exponent estimates
+[est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
+```
+
 
 
 The main parameters to take into account in the structure `params` are:
