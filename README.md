@@ -11,27 +11,29 @@ The following matlab package is required: [WLBMF](https://www.irit.fr/~Herwig.We
   - [Lucas et al., 2021](https://www.irit.fr/~Herwig.Wendt/data/LucasEUSIPCO2021.pdf)
   
 ## Quick start
-The basic syntax to run OFBM tools is as follows:
+The basic syntax to estimate self-similarity exponents is as follows:
 
 ```
-paramsEst = params; paramsEst.Nwt = 2 ; paramsEst.j1 = 5; paramsEst.j2 = 10; paramsEst.Jref = paramsEst.j2 ;
+% parameters of the estimation
+paramsEst = params; % params contains the parameters of the ofBm generated in data
+paramsEst.Nwt = 2 ; paramsEst.j1 = 5; paramsEst.j2 = 10; paramsEst.Jref = paramsEst.j2 ;
 paramsEst.FigNum = 10 ; paramsEst.wtype = 1 ; paramsEst.NB = 0; paramsEst.LB = 0;
 % return self-similarity exponent estimates
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
 
+The basic syntax to cluster self-similarity exponents is as follows:
 ```
-paramsEst = params;
-paramsEst.Nwt = 2 ;
-paramsEst.j1 = 5;
-paramsEst.j2 = 10;
-paramsEst.Jref = paramsEst.j2 ;
-paramsEst.FigNum = 10 ;
-paramsEst.wtype = 1 ;
-paramsEst.NB = 0;
-paramsEst.LB = 0;
-% return self-similarity exponent estimates
+paramsEst = params; 
+paramsEst.Nwt = 2 ; paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ;
+paramsEst.FigNum = 10 ; paramsEst.wtype = 1 ; 
+paramsEst.NB = 500; paramsEst.LB = params.Nwt; % bootstrap estimates are needed for the pairwise tests
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
+[nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
+
+%% Testing procedure
+alpha = 0.05;
+estT = OFBM_estimBC_BS_test(estbc,alpha,params);
 ```
 
 The main parameters to take into account in the structure `params` are:
