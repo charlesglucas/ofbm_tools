@@ -27,7 +27,7 @@ The basic syntax to cluster self-similarity exponents is as follows:
 % parameters of the estimation
 paramsEst = params; 
 paramsEst.Nwt = 2 ; paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ;
-paramsEst.FigNum = 10 ; paramsEst.wtype = 1 ; 
+paramsEst.FigNum = 0 ; paramsEst.wtype = 1 ; 
 paramsEst.NB = 500; paramsEst.LB = params.Nwt; % bootstrap estimates are needed for the pairwise tests
 % return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
