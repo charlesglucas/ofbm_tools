@@ -14,6 +14,13 @@ The following matlab package is required: [WLBMF](https://www.irit.fr/~Herwig.We
 The basic syntax to run OFBM tools is as follows:
 
 ```
+paramsEst = params; paramsEst.Nwt = 2 ; paramsEst.j1 = 5; paramsEst.j2 = 10; paramsEst.Jref = paramsEst.j2 ;
+paramsEst.FigNum = 10 ; paramsEst.wtype = 1 ; paramsEst.NB = 0; paramsEst.LB = 0;
+% return self-similarity exponent estimates
+[est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
+```
+
+```
 paramsEst = params;
 paramsEst.Nwt = 2 ;
 paramsEst.j1 = 5;
@@ -26,8 +33,6 @@ paramsEst.LB = 0;
 % return self-similarity exponent estimates
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
-
-
 
 The main parameters to take into account in the structure `params` are:
 
@@ -42,12 +47,4 @@ The main parameters to take into account in the structure `params` are:
   - `NB`: number of bootstrap resampling
   - `LB`: number of blocks for the bootstrap resampling
   
-
-    
-Here is an example with non-default parameters:
-```
-param.R = 5; param.sigma = 0.1;
-[Lambda,~] = bfgs_sugar_dms(image, param);
-[u,e,~] = DMS_2D(image,Lambda(1),Lambda(2));
-```
-An example with simulated images can also be found in the `example` folder.
+Examples with simulated ofBm can also be found in the `example` folder.
