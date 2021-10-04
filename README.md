@@ -45,7 +45,7 @@ The main parameters to take into account in the structure `params` are:
   - `Jref`: reference scale under which several wavelet spectra are computed with the same number wavelet coeficients
   - `j2`: last scale for analysis
   - `j1`: first scale for analysis
-  - `wtype`, the kind of weighting used in the linear regressions:
+  - `wtype`, kind of weighting used in the linear regressions:
     - no weigthing  (ie uniform weights)
     - 1/nj weights  (suitable for fully Gaussian data)
     - use variance of the estimates
