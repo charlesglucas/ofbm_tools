@@ -21,7 +21,10 @@ paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ;
 paramsEst.NB = 0; paramsEst.LB = 0;
 % return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
+```
 
+The clustering of the scaling exponents need to run the estimation with adapted parameters:
+```
 % parameters of the estimation for clustering (bootstrap estimates are needed for the pairwise tests)
 paramsEst.NB = 500; paramsEst.LB = params.Nwt; 
 % return self-similarity exponent estimation
