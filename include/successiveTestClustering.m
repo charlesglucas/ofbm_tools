@@ -1,4 +1,5 @@
 function [nbcluster, cluster] = successiveTestClustering(dec)
+% Charles-Gérard Lucas, ENS Lyon, August 2021
 
 K = length(dec);
 decList = dec;

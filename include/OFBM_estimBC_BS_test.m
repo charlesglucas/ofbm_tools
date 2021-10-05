@@ -6,7 +6,7 @@ function [estT] = OFBM_estimBC_BS_test(est,alpha,params)
 %  Output:    estT:    structure of estimation method with testing
 %                   procedures in adddition
 %
-% Charles-Gérard Lucas, ENS Lyon, 2021
+% Charles-Gérard Lucas, ENS Lyon, Feb 2021
 
 estT = est;
 P = params.P;

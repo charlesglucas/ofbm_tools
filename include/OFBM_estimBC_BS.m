@@ -32,7 +32,6 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 %             estbc:   structure related to a bias corrected multivarate estimation,
 %                   which is empty when Jref = 0
 %
-% 
 
 estbc = {};
 

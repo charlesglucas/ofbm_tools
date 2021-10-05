@@ -1,6 +1,6 @@
 % fdrcorrection
-% PA Lyon, Feb 2019
-% PA Lyon, Oct 2020 add Bonferonni 
+% Patrice Abry, Lyon, Feb 2019
+% Patrice Abry, Lyon, Oct 2020 add Bonferonni 
 
 function [dec,s,ps,index] = fdrcorrection(pvals,alpha)
 
