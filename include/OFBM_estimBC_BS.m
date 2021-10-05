@@ -23,7 +23,7 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 %                   - nbcoeffmin: coefficent to adjust the maximum scale of 
 %                   analysis according to the sample sizes at each scale
 %                   - nbcompmaxplot: the maximum number of components for
-%                   which figures can be plotted
+%                   which wavalet spectrum is plotted
 %                   - Jrefplot: scale of shifting to overlap the structure
 %                   function plots
 %
@@ -368,10 +368,10 @@ if FigNum > 0
    
     
     JMM = length(lambda(:,P)) ; 
-    figure(FigNum) ; clf 
     %t = tiledlayout(P,P);
     %t.TileSpacing = 'tight';
 if params.P<=params.nbcompmaxplot
+    figure(FigNum) ; clf ;
     for p = 1:1:P
         for m = 1:1:P
             if NB
@@ -490,17 +490,17 @@ if params.P<=params.nbcompmaxplot
         set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
     end
     
-        hh = figure(FigNum+5) ; clf ; 
-        set(gca,'FontSize',fontsize) ; 
-        for p = 1:1:P
-            JJ =1:JMj(p) ;
-            plot(log2(abs(squeeze(est.WW(p,p,JJ))))-log2(abs(squeeze(est.WW(p,p,Jrefplot)))),'ok-','MarkerSize',markersize,'LineWidth',linewidth) ;  grid on ; hold on ;
-            plot(JJ,log2(abs(lambda(JJ,p)))-log2(abs(lambda(Jrefplot,p))),'ob-','MarkerSize',markersize,'LineWidth',linewidth) ;
-            plot(JJ,log2(abs(lambdabc(JJ,p)))-log2(abs(lambdabc(Jrefplot,p))),'or-','MarkerSize',markersize,'LineWidth',linewidth) ;
-        end
-        xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
-        ylabel('$\log_2 \lambda_m(2^j) - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
-        set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+    hh = figure(FigNum+5) ; clf ; 
+    set(gca,'FontSize',fontsize) ; 
+    for p = 1:1:P
+        JJ =1:JMj(p) ;
+        plot(log2(abs(squeeze(est.WW(p,p,JJ))))-log2(abs(squeeze(est.WW(p,p,Jrefplot)))),'ok-','MarkerSize',markersize,'LineWidth',linewidth) ;  grid on ; hold on ;
+        plot(JJ,log2(abs(lambda(JJ,p)))-log2(abs(lambda(Jrefplot,p))),'ob-','MarkerSize',markersize,'LineWidth',linewidth) ;
+        plot(JJ,log2(abs(lambdabc(JJ,p)))-log2(abs(lambdabc(Jrefplot,p))),'or-','MarkerSize',markersize,'LineWidth',linewidth) ;
+    end
+    xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
+    ylabel('$\log_2 \lambda_m(2^j) - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
+    set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
 end
     
 %    if Jref ~=0
