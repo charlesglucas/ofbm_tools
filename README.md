@@ -30,10 +30,10 @@ paramsEst.NB = 500; paramsEst.LB = params.Nwt;
 % return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 
-% Testing procedure
+% testing procedure
 alpha = 0.05;
 estT = OFBM_estimBC_BS_test(estbc,alpha,params);
-% Clustering of the self-similarity exponents
+% clustering of the self-similarity exponents
 [nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
 
