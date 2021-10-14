@@ -203,7 +203,7 @@ end
 
 if Jref ~= 0
     for nb=1:NB
-        for j = J1BS:JM
+        for j = J1BS:Jref
             tmp1 = WWBSbc{j}; [~,~,~,ndiv]=size(tmp1);
             clear lambBSbc
             for ib=1:ndiv
