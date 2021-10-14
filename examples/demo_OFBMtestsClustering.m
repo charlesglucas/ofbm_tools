@@ -9,21 +9,21 @@ format compact
 load('data/result_estimbc_sizeH6.mat')
 
 %% Estimation and Bootstrap
-params.Nwt = 2 ;
-params.j1 = 6 ;
-params.j2 = 10 ;
-params.FigNum = 10 ;
-params.wtype = 1 ;
-params.Jref = params.j2;
-params.NB=500;
-params.LB=params.Nwt;
-params.Bcorr=0;
+paramsEst = params;
+paramsEst.Nwt = 2 ;
+paramsEst.j1 = 8 ;
+paramsEst.j2 = 10 ;
+paramsEst.FigNum = 0 ;
+paramsEst.wtype = 1 ;
+paramsEst.Jref = paramsEst.j2;
+paramsEst.NB=500;
+paramsEst.LB=2*paramsEst.Nwt;
 
-[est,estbc] = OFBM_estimBC_BS(data,params) ;
+[est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 
 %% Testing procedure
 alpha = 0.05;
-estT = OFBM_estimBC_BS_test(estbc,alpha,params);
+estT = OFBM_estimBC_BS_test(estbc,alpha,paramsEst);
 
 %% Clustering based on sorted pairwise tests
 [nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);

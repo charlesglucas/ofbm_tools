@@ -11,7 +11,7 @@ load('data/result_estimbc_sizeH4.mat')
 
 %% Estimation
 paramsEst = params;
-paramsEstEst.Nwt = 2 ;
+paramsEst.Nwt = 2 ;
 paramsEst.j1 = 5;
 paramsEst.j2 = 10;
 paramsEst.Jref = paramsEst.j2 ;

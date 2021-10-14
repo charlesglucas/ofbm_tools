@@ -1,13 +1,14 @@
 % fdrcorrection
-% Patrice Abry, Lyon, Feb 2019
-% Patrice Abry, Lyon, Oct 2020 add Bonferonni 
+% PA Lyon, Feb 2019
+% PA Lyon, Oct 2020 add Bonferonni 
 
 function [dec,s,ps,index] = fdrcorrection(pvals,alpha)
 
 m =length(pvals) ; 
 [ps,index] = sort(pvals) ; 
 mm = 1:m ; 
-C = sum(1./mm) ; 
+C = sum(1./mm) ;
+dec = zeros(6,m);
 
 s(1,:) = alpha*ones(size(mm)) ;
 s(2,:) = alpha*mm/m ; % Benjamini-Hochberg - indep test
@@ -21,9 +22,9 @@ for k=1:1:m
     dec(4,k) = ps(k)<=s(4,k) ; 
 end
 
+for j=2:3
+tmp = dec(j,:); idx = find(tmp==1);
+if ~isempty(idx), dec(j+3,1:idx(end)) = ones(1,idx(end)); end
 end
 
-
-% [pliste ; ps ;index]
-% dec
-
+end

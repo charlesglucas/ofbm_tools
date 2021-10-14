@@ -1,7 +1,11 @@
 
-
 % function [est,estbc,nj,JM] = OFBM_estim_divBC_BS(data,Nwt,j1,j2,wtype,Jref,NB,LB,FigNum)
 function [est,estbc] = OFBM_estimBC_BS(data,params) 
+
+% returns the univariate-like and multivariate estimations in a structure
+% 'est' and the bias corrected estimation in a structure 'estbc', which is
+% empty when Jref = 0
+
 %
 %  Input:     data:   matrix of size P x N, with P number of components and N 
 %                   the sample size, corresponding to an ofBm model     
@@ -23,7 +27,7 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 %                   - nbcoeffmin: coefficent to adjust the maximum scale of 
 %                   analysis according to the sample sizes at each scale
 %                   - nbcompmaxplot: the maximum number of components for
-%                   which wavalet spectrum is plotted
+%                   which wavelet spectrum is plotted
 %                   - Jrefplot: scale of shifting to overlap the structure
 %                   function plots
 %
@@ -32,6 +36,8 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 %             estbc:   structure related to a bias corrected multivarate estimation,
 %                   which is empty when Jref = 0
 %
+% 
+
 
 estbc = {};
 
@@ -46,6 +52,7 @@ if ~isfield(params,'FigNum'), params.FigNum=0; end
 if ~isfield(params,'nbcoeffmin'), params.nbcoeffmin = 8 ; end
 if ~isfield(params,'nbcompmaxplot'), params.nbcompmaxplot = 5 ; end
 if ~isfield(params,'Jrefplot'), params.Jrefplot = 1 ; end
+if ~isfield(params,'gamint'), params.gamint = 0.5; end
 
 
 if params.Jref > params.j2, params.Jref = params.j2; end
@@ -61,8 +68,8 @@ LB = params.LB ;
 FigNum = params.FigNum ;
 nbcoeffmin = params.nbcoeffmin ; 
 Jrefplot = params.Jrefplot ; 
+gamint = params.gamint;
 
-gamint = 0.5; 
 markersize = 15 ; 
 markersize2 = 6 ; 
 linewidth = 2 ; 
@@ -124,18 +131,22 @@ for k = 1:1:P
             tmp=mean(real(WD{k}(j).value_noabs.*WD{m}(j).value_noabs));
             WW(k,m,j) = tmp ; 
             % --- bootstrap
-            if j>=J1BS & NB
+            if j>=J1BS && NB
                 tmpBS=mean(real(WD{k}(j).value_noabs_bs.*WD{m}(j).value_noabs_bs),2)';
                 WWBS(k,m,:,j) = tmpBS ;
             end
             
-            if Jref ~= 0
+            if Jref ~= 0               
                 nntmp=min(Ldiv,NJ2(j));
                 tmp=mean(reshape(real(WD{k}(j).value_noabs(1:NJ2(j)).*WD{m}(j).value_noabs(1:NJ2(j))),nntmp,[]));
                 WWbc{j}(k,m,:) = tmp ; 
                 % --- bootstrap
-                if j>=J1BS & NB
-                    tmpBS=mean(reshape( real(WD{k}(j).value_noabs_bs(:,1:NJ2(j)).*WD{m}(j).value_noabs_bs(:,1:NJ2(j))), NB, nntmp,[]),2 );
+                if j>=J1BS && NB
+                    intnj2 = floor(NJ2(j)/LB)*LB;
+                    if j< Jref, intnj2 = floor(intnj2/Ldiv)*Ldiv; end
+                    nntmp2 = min(Ldiv,intnj2);
+                    tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:intnj2).*WD{m}(j).value_noabs_bs(:,1:intnj2)), NB, nntmp2,[]),2 );
+                    %tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:NJ2(j)).*WD{m}(j).value_noabs_bs(:,1:NJ2(j))), NB, nntmp,[]),2 );
                     WWBSbc{j}(k,m,:,:) = tmpBS ;
                 end
             end
@@ -294,8 +305,7 @@ est.wtype = wtype ;
 % est.lambdajmbs = mean(squeeze(lambdaBS(k,:,j))) ; 
 % est.WWBS = WWBS ;
 if NB, est.lambdajBS = lambdaBS; end
-est.hU=Regrmat(log2(squeeze(abs(est.WW))),ones(P,P,length(NJ)),NJ,wtype, j1,j2)/2 + 1/2 - params.FBM;
-
+est.hU=Regrmat(log2(squeeze(abs(est.WW))),ones(P,P,length(NJ)),NJ,wtype, j1,j2)/2;
 
 if Jref ~= 0
     estbc.VVj = VVbc ;
@@ -370,7 +380,7 @@ if FigNum > 0
     %t = tiledlayout(P,P);
     %t.TileSpacing = 'tight';
 if params.P<=params.nbcompmaxplot
-    figure(FigNum) ; clf ;
+    figure(FigNum) ; clf 
     for p = 1:1:P
         for m = 1:1:P
             if NB
@@ -498,7 +508,7 @@ if params.P<=params.nbcompmaxplot
         plot(JJ,log2(abs(lambdabc(JJ,p)))-log2(abs(lambdabc(Jrefplot,p))),'or-','MarkerSize',markersize,'LineWidth',linewidth) ;
     end
     xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
-    ylabel('$\log_2 \lambda_m(2^j) - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
+    ylabel('$\log_2 \lambda_m(2^j)  - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
     set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
 end
     
