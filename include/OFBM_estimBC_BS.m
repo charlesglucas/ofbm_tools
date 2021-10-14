@@ -121,8 +121,13 @@ Jref=min(Jref,j2);
 % HW: if Jref==0, don't divide and use standard estimation
 if Jref ~=0
     Ldiv = nj.W(Jref);
-    NJ2=max(Ldiv,floor(nj.W/Ldiv)*Ldiv);
-    NJ2=min([NJ2;nj.W]);
+    NJ2 = max(Ldiv,floor(nj.W/Ldiv)*Ldiv);
+    NJ2 = min([NJ2;nj.W]);
+    
+    LdivBS = size(WD{1}(Jref).value_noabs_bs,2);
+    for j=1:JM, njBS(j) = size(WD{1}(j).value_noabs_bs,2); end
+    NJ2BS = max(LdivBS,floor(njBS/LdivBS)*LdivBS);
+    NJ2BS = min([NJ2BS;njBS]);
 end
 
 for k = 1:1:P
@@ -142,10 +147,8 @@ for k = 1:1:P
                 WWbc{j}(k,m,:) = tmp ; 
                 % --- bootstrap
                 if j>=J1BS && NB
-                    intnj2 = floor(NJ2(j)/LB)*LB;
-                    if j< Jref, intnj2 = floor(intnj2/Ldiv)*Ldiv; end
-                    nntmp2 = min(Ldiv,intnj2);
-                    tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:intnj2).*WD{m}(j).value_noabs_bs(:,1:intnj2)), NB, nntmp2,[]),2 );
+                    nntmp2 = min(LdivBS,NJ2BS(j));
+                    tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:NJ2BS(j)).*WD{m}(j).value_noabs_bs(:,1:NJ2BS(j))), NB, nntmp2,[]),2 );
                     %tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:NJ2(j)).*WD{m}(j).value_noabs_bs(:,1:NJ2(j))), NB, nntmp,[]),2 );
                     WWBSbc{j}(k,m,:,:) = tmpBS ;
                 end
@@ -203,7 +206,7 @@ end
 
 if Jref ~= 0
     for nb=1:NB
-        for j = J1BS:Jref
+        for j = J1BS:JM
             tmp1 = WWBSbc{j}; [~,~,~,ndiv]=size(tmp1);
             clear lambBSbc
             for ib=1:ndiv
