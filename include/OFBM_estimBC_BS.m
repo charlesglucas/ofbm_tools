@@ -123,11 +123,12 @@ if Jref ~=0
     Ldiv = nj.W(Jref);
     NJ2 = max(Ldiv,floor(nj.W/Ldiv)*Ldiv);
     NJ2 = min([NJ2;nj.W]);
-    
-    LdivBS = size(WD{1}(Jref).value_noabs_bs,2);
-    for j=1:JM, njBS(j) = size(WD{1}(j).value_noabs_bs,2); end
-    NJ2BS = max(LdivBS,floor(njBS/LdivBS)*LdivBS);
-    NJ2BS = min([NJ2BS;njBS]);
+    if NB
+        LdivBS = size(WD{1}(Jref).value_noabs_bs,2);
+        for j=1:JM, njBS(j) = size(WD{1}(j).value_noabs_bs,2); end
+        NJ2BS = max(LdivBS,floor(njBS/LdivBS)*LdivBS);
+        NJ2BS = min([NJ2BS;njBS]);
+    end
 end
 
 for k = 1:1:P
