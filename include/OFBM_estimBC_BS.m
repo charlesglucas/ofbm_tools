@@ -123,12 +123,6 @@ if Jref ~=0
     Ldiv = nj.W(Jref);
     NJ2 = max(Ldiv,floor(nj.W/Ldiv)*Ldiv);
     NJ2 = min([NJ2;nj.W]);
-    if NB
-        LdivBS = size(WD{1}(Jref).value_noabs_bs,2);
-        for j=1:JM, njBS(j) = size(WD{1}(j).value_noabs_bs,2); end
-        NJ2BS = max(LdivBS,floor(njBS/LdivBS)*LdivBS);
-        NJ2BS = min([NJ2BS;njBS]);
-    end
 end
 
 for k = 1:1:P
@@ -148,9 +142,7 @@ for k = 1:1:P
                 WWbc{j}(k,m,:) = tmp ; 
                 % --- bootstrap
                 if j>=J1BS && NB
-                    nntmp2 = min(LdivBS,NJ2BS(j));
-                    tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:NJ2BS(j)).*WD{m}(j).value_noabs_bs(:,1:NJ2BS(j))), NB, nntmp2,[]),2 );
-                    %tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:NJ2(j)).*WD{m}(j).value_noabs_bs(:,1:NJ2(j))), NB, nntmp,[]),2 );
+                    tmpBS=mean(reshape(real(WD{k}(j).value_noabs_bs(:,1:NJ2(j)).*WD{m}(j).value_noabs_bs(:,1:NJ2(j))), NB, nntmp,[]),2 );
                     WWBSbc{j}(k,m,:,:) = tmpBS ;
                 end
             end
