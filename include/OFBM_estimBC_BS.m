@@ -493,19 +493,20 @@ if params.P<=params.nbcompmaxplot
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)$','Interpreter','Latex','FontSize',fontsize)
         set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
-    end
     
-    hh = figure(FigNum+5) ; clf ; 
-    set(gca,'FontSize',fontsize) ; 
-    for p = 1:1:P
-        JJ =1:JMj(p) ;
-        plot(log2(abs(squeeze(est.WW(p,p,JJ))))-log2(abs(squeeze(est.WW(p,p,Jrefplot)))),'ok-','MarkerSize',markersize,'LineWidth',linewidth) ;  grid on ; hold on ;
-        plot(JJ,log2(abs(lambda(JJ,p)))-log2(abs(lambda(Jrefplot,p))),'ob-','MarkerSize',markersize,'LineWidth',linewidth) ;
-        plot(JJ,log2(abs(lambdabc(JJ,p)))-log2(abs(lambdabc(Jrefplot,p))),'or-','MarkerSize',markersize,'LineWidth',linewidth) ;
+        hh = figure(FigNum+5) ; clf ; 
+        set(gca,'FontSize',fontsize) ; 
+        for p = 1:1:P
+            JJ =1:JMj(p) ;
+            plot(log2(abs(squeeze(est.WW(p,p,JJ))))-log2(abs(squeeze(est.WW(p,p,Jrefplot)))),'ok-','MarkerSize',markersize,'LineWidth',linewidth) ;  grid on ; hold on ;
+            plot(JJ,log2(abs(lambda(JJ,p)))-log2(abs(lambda(Jrefplot,p))),'ob-','MarkerSize',markersize,'LineWidth',linewidth) ;
+            plot(JJ,log2(abs(lambdabc(JJ,p)))-log2(abs(lambdabc(Jrefplot,p))),'or-','MarkerSize',markersize,'LineWidth',linewidth) ;
+        end
+        xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
+        ylabel('$\log_2 \lambda_m(2^j)  - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
+        set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+    
     end
-    xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
-    ylabel('$\log_2 \lambda_m(2^j)  - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
-    set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
 end
     
 %    if Jref ~=0
