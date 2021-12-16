@@ -41,6 +41,7 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 
 estbc = {};
 
+if ~isfield(params,'FBM'), params.FBM=1; end
 if ~isfield(params,'wtype'), params.wtype=1; end
 if ~isfield(params,'Nwt'), params.Nwt=2; end
 if ~isfield(params,'Jref'), params.Jref=params.j2; end
@@ -375,7 +376,7 @@ if FigNum > 0
     JMM = length(lambda(:,P)) ; 
     %t = tiledlayout(P,P);
     %t.TileSpacing = 'tight';
-if params.P<=params.nbcompmaxplot
+if P<=params.nbcompmaxplot
     figure(FigNum) ; clf 
     for p = 1:1:P
         for m = 1:1:P

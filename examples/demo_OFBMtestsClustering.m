@@ -9,7 +9,7 @@ format compact
 load('data/result_estimbc_sizeH6.mat')
 
 %% Estimation and Bootstrap
-paramsEst = params;
+paramsEst.FBM = 1;
 paramsEst.Nwt = 2 ;
 paramsEst.j1 = 8 ;
 paramsEst.j2 = 10 ;
@@ -23,8 +23,12 @@ paramsEst.LB=2*paramsEst.Nwt;
 
 %% Testing procedure
 alpha = 0.05;
-estT = OFBM_estimBC_BS_test(estbc,alpha,paramsEst);
+paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
+estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
 
 %% Clustering based on sorted pairwise tests
 [nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
 disp(['Sorted tests: clusters = [',num2str(cluster),'], ',num2str(nbcluster),' clusters'])
+
+%% Modify self-similarity exponent values
+averagedClusters(estT.h,cluster)

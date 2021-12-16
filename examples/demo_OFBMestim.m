@@ -10,7 +10,7 @@ addpath(genpath('./'))
 load('data/result_estimbc_sizeH4.mat')
 
 %% Estimation
-paramsEst = params;
+paramsEst.FBM = 1;
 paramsEst.Nwt = 2 ;
 paramsEst.j1 = 5;
 paramsEst.j2 = 10;
