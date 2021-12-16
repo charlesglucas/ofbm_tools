@@ -42,14 +42,14 @@ estT = OFBM_estimBC_BS_test(estbc,alpha,params);
 The main parameters to take into account in the structure `params` are:
 
   - `R`, the number of realizations of the Monte Carlo vector;
-  - `Jref`, reference scale under which several wavelet spectra are computed with the same number wavelet coeficients
-  - `j2`, last scale for analysis
-  - `j1`, first scale for analysis
+  - `Jref`, reference scale under which several wavelet spectra are computed with the same number wavelet coeficients;
+  - `j2`, last scale for analysis;
+  - `j1`, first scale for analysis;
   - `wtype`, kind of weighting used in the linear regressions:
-    - no weigthing  (i.e., uniform weights)
-    - 1/nj weights  (suitable for fully Gaussian data)
-    - use variance of the estimates
-  - `NB`, number of bootstrap resampling
-  - `LB`, number of blocks for the bootstrap resampling
+    - no weigthing  (i.e., uniform weights);
+    - 1/nj weights  (suitable for fully Gaussian data);
+    - use variance of the estimates;
+  - `NB`, number of bootstrap resampling;
+  - `LB`, number of blocks for the bootstrap resampling.
   
 Examples with simulated ofBm can also be found in the `examples` folder.
