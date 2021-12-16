@@ -21,7 +21,7 @@ paramsEst.NB = 0; paramsEst.LB = 0;
 % return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
-The parameters to take into account in the structure `paramsEst` for OFBM_estimBC_BS are:
+The parameters to take into account in the input structure `paramsEst` of OFBM_estimBC_BS are:
 
   - `R`, the number of realizations of the Monte Carlo vector;
   - `Jref`, reference scale under which several wavelet spectra are computed with the same number wavelet coeficients;
@@ -58,7 +58,7 @@ estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
 % cluster the self-similarity exponents
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
-The parameters to take into account in the structure `paramsTest` for OFBM_estimBC_BS_test are:
+The parameters to take into account in the input structure `paramsTest` of OFBM_estimBC_BS_test are:
 
   - `P`, the number of components;
   -  `NB`, number of bootstrap resampling.
