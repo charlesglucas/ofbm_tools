@@ -15,31 +15,14 @@ The basic syntax to run OFBM Tools is as follows:
 
 ```
 % parameters of the estimation
-% params : parameters of the ofBm generated in the `data` folder
-paramsEst = params; 
+paramsEst.FBM = 1; % for ofBm
 paramsEst.Nwt = 2 ; paramsEst.FigNum = 10 ; paramsEst.wtype = 1 ;
 paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ; 
 paramsEst.NB = 0; paramsEst.LB = 0;
 % return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
-
-The clustering of the scaling exponents need to run the estimation with adapted parameters:
-```
-% parameters of the estimation for clustering 
-% bootstrap estimates are needed for the pairwise tests
-paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
-% return self-similarity exponent estimation
-[est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
-
-% testing procedure
-alpha = 0.05;
-estT = OFBM_estimBC_BS_test(estbc,alpha,params);
-% cluster the self-similarity exponents
-[nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
-```
-
-The main parameters to take into account in the structure `params` are:
+The parameters to take into account in the structure `paramsEst` for OFBM_estimBC_BS are:
 
   - `R`, the number of realizations of the Monte Carlo vector;
   - `Jref`, reference scale under which several wavelet spectra are computed with the same number wavelet coeficients;
@@ -50,6 +33,30 @@ The main parameters to take into account in the structure `params` are:
     - 1/nj weights  (suitable for fully Gaussian data);
     - use variance of the estimates;
   - `NB`, number of bootstrap resampling;
-  - `LB`, number of blocks for the bootstrap resampling.
-  
+  - `LB`, number of blocks for the bootstrap resampling;
+  - `Nwt`, number of vanishing moments of the wavelet;
+  - `FBM`, type of the process:
+    - 1 for operator fractional Brownian motion;
+    - 0 for operator fractional Gaussian noise;
+    
+The clustering of the scaling exponents need to run the estimation with adapted parameters:
+```
+% parameters of the estimation for clustering 
+% bootstrap estimates are needed for the pairwise tests
+paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
+% return self-similarity exponent estimation
+[est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
+
+% testing procedure
+alpha = 0.05; % significance level
+paramsTest.P = size(data,1); params.NB = paramsEst.NB;
+estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
+% cluster the self-similarity exponents
+[nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
+```
+The parameters to take into account in the structure `paramsTest` for OFBM_estimBC_BS_test are:
+
+  - `P`, the number of components;
+  -  `NB`, number of bootstrap resampling.
+
 Examples with simulated ofBm can also be found in the `examples` folder.
