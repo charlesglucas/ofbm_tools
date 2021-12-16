@@ -36,7 +36,7 @@ The parameters to take into account in the structure `paramsEst` for OFBM_estimB
   - `Nwt`, number of vanishing moments of the wavelet;
   - `FBM`, type of the process:
     - 1 for operator fractional Brownian motion;
-    - 0 for operator fractional Gaussian noise;
+    - 0 for operator fractional Gaussian noise.
     
 The clustering of the scaling exponents need to run the estimation with adapted parameters:
 ```
