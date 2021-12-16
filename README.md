@@ -46,7 +46,7 @@ The main parameters to take into account in the structure `params` are:
   - `j2`, last scale for analysis
   - `j1`, first scale for analysis
   - `wtype`, kind of weighting used in the linear regressions:
-    - no weigthing  (ie uniform weights)
+    - no weigthing  (i.e., uniform weights)
     - 1/nj weights  (suitable for fully Gaussian data)
     - use variance of the estimates
   - `NB`, number of bootstrap resampling
