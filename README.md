@@ -48,7 +48,7 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 
 % testing procedure
 alpha = 0.05; % significance level
-paramsTest.P = size(data,1); params.NB = paramsEst.NB;
+paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
 estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
 % cluster the self-similarity exponents
 [nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
