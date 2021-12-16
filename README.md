@@ -56,7 +56,7 @@ alpha = 0.05; % significance level
 paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
 estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
 % cluster the self-similarity exponents
-[nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
+[nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
 The parameters to take into account in the structure `paramsTest` for OFBM_estimBC_BS_test are:
 
