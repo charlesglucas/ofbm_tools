@@ -37,6 +37,11 @@ The parameters to take into account in the structure `paramsEst` for OFBM_estimB
   - `FBM`, type of the process:
     - 1 for operator fractional Brownian motion;
     - 0 for operator fractional Gaussian noise.
+
+The main parameters contained in the structures `est` and `estbc` returned by OFBM_estimBC_BS are:
+  - `est.hU`, matrix of univariate-like estimates of the self similarity exponents;
+  - `est.h`, classical multivariate estimates of the self similarity exponents;
+  - `estbs.h`, bias corrected multivariate estimates of the self similarity exponents.
     
 The clustering of the scaling exponents need to run the estimation with adapted parameters:
 ```
