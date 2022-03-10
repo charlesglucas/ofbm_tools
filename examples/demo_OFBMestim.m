@@ -6,8 +6,9 @@ clear all
 close all 
 format compact
 
-addpath(genpath('./'))
-load('data/result_estimbc_sizeH4.mat')
+addpath('../include/')
+addpath(genpath('../WLBMF_tool/'))
+load('../data/result_estimbc_sizeH6.mat')
 
 %% Estimation
 paramsEst.FBM = 1;
