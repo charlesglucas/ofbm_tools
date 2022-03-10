@@ -20,7 +20,7 @@ ihi=round((1-aa/2)*NB);
 ihi2=round((1-aa)*NB);
 
 estT.lambdaBSsort=sort(estT.lambdaBS-mean(estT.lambdaBS),2,'ascend');
-%estT.lambdaBSsort=sort(estT.lambdaBS,2,'ascend');
+estT.lambdaBSsortH1=sort(estT.lambdaBS,2,'ascend');
 
 p = 0;
 for p1=1:1:P-1
@@ -31,15 +31,16 @@ for p1=1:1:P-1
         estT.MeanDelta(p1,p2)=mean(estT.lambdaBS(:,p1)-estT.lambdaBS(:,p2));
         estT.SBE(p1,p2)=sqrt(estT.VarDelta(p1,p2));
         estT.SBEsort(p1,p2) = sqrt(estT.VarDeltasort(p1,p2))/sqrt(1-2/pi);
+        [~,sigma] = FNparameter(estT.lambdaBSsortH1(:,p2)-estT.lambdaBSsortH1(:,p1));
+        estT.SBEsort_v2(p1,p2) = sigma;
         
         % Gaussian and half-Gaussian tests
         estT.dec(p1,p2)=abs(estT.lambda(p1)-estT.lambda(p2))>tc*estT.SBE(p1,p2);
         estT.pval(p1,p2)=2*(1-normcdf(abs(estT.lambda(p1)-estT.lambda(p2))/estT.SBE(p1,p2)));
-        %estT.pvalbis(p1,p2)=2*(1-cdf('Normal',abs(estT.lambda(p1)-estT.lambda(p2))/estT.SBE(p1,p2),0,1));
         estT.decsort(p1,p2)=abs(estT.lambdasort(p1)-estT.lambdasort(p2))>tc2*estT.SBEsort(p1,p2);
-        %estT.decsortbis(p1,p2)=abs(estT.lambdasort(p1)-estT.lambdasort(p2))>tc2*estT.SBE(p1,p2);
         estT.pvalsort(p1,p2)=1-cdf('HalfNormal',abs(estT.lambdasort(p1)-estT.lambdasort(p2))/estT.SBEsort(p1,p2),0,1);
-        %estT.pvalsortbis(p1,p2)=1-cdf('HalfNormal'ù,abs(estT.lambdasort(p1)-estT.lambdasort(p2))/estT.SBE(p1,p2),0,1);
+        estT.decsort_v2(p1,p2)=abs(estT.lambdasort(p1)-estT.lambdasort(p2))>tc2*estT.SBEsort_v2(p1,p2);
+        estT.pvalsort_v2(p1,p2)=1-cdf('HalfNormal',abs(estT.lambdasort(p1)-estT.lambdasort(p2))/estT.SBEsort_v2(p1,p2),0,1);
         
         % percentile Bootstrap test 
         eD=(estT.lambda(p1)-estT.lambda(p2));
@@ -86,6 +87,25 @@ estT.decsortHoc = pairwiseTestProduct(decs(2,:));
 estT.decsortYek = pairwiseTestProduct(decs(3,:));
 estT.decsortHoc2 = pairwiseTestProduct(decs(5,:));
 estT.decsortYek2 = pairwiseTestProduct(decs(6,:));
+
+% FDR correction for alternative half-normal test
+% using folded normal parameter estimation
+PvalSeq = estT.pvalsort_v2;
+PvalSeq(P,:) = zeros(1,P);
+[dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),aa);
+for r=1:6, for k=1:P-1, decs(r,index(k)) = dec(r,k); end; end
+estT.decsortpw_v2 = decs(1,:);
+estT.decsortBFpw_v2 = decs(4,:);
+estT.decsortHocpw_v2 = decs(2,:);
+estT.decsortYekpw_v2 = decs(3,:);
+estT.decsortHoc2pw_v2 = decs(5,:);
+estT.decsortYek2pw_v2 = decs(6,:);
+estT.decsort2_v2 = pairwiseTestProduct(decs(1,:));
+estT.decsortBF_v2 = pairwiseTestProduct(decs(4,:));
+estT.decsortHoc_v2 = pairwiseTestProduct(decs(2,:));
+estT.decsortYek_v2 = pairwiseTestProduct(decs(3,:));
+estT.decsortHoc2_v2 = pairwiseTestProduct(decs(5,:));
+estT.decsortYek2_v2 = pairwiseTestProduct(decs(6,:));
 
 % FDR correction for non parametric sorted test
 PvalSeq = estT.pvalBSsort;
@@ -140,14 +160,6 @@ estT.decYekBS = pairwiseTestProduct(decs(3,:));
 estT.decHoc2BS = pairwiseTestProduct(decs(5,:));
 estT.decYek2BS = pairwiseTestProduct(decs(6,:));
 
-% extract test h1<h2<...<hM 
-% tmp=estT.decsort; estT.decdiag=diag(tmp(:,2:end));
-% tmp=estT.pvalsort; estT.pvaldiag=diag(tmp(:,2:end));
-% tmp=estT.decBSsort; estT.decBSdiag=diag(tmp(:,2:end));
-% tmp=estT.pvalBSsort; estT.pvalBSdiag=diag(tmp(:,2:end));
-% tmp=estT.decBSsortbis; estT.decBSdiagbis=diag(tmp(:,2:end));
-% tmp=estT.pvalBSsortbis; estT.pvalBSdiagbis=diag(tmp(:,2:end));
-
 % compute approximate chi2 test
 estT.invSigma = inv(cov(estT.lambdaBS));
 cL = estT.lambda - mean(estT.lambda);
@@ -155,33 +167,6 @@ estT.T=cL*estT.invSigma*cL';
 estT.T2=sum( (estT.lambda-mean(estT.lambda)).^2 );
 estT.Tdec = estT.T >= chi2inv(1-aa,P-1);
 estT.Tpval = 1 - chi2cdf(estT.T,P-1);
-
-% Chi2 test with sigma diagonal
-% estT.Tbis=sum( ( estT.lambda - mean(estT.lambda) ).^2 ./ estT.varBS );
-% estT.Tbisdec = estT.Tbis >= chi2inv(1-aa,P-1);
-% estT.Tbispval = 1 - chi2cdf(estT.Tbis,P-1);
-
-% for p1=1:1:P
-%     studBS(:,p1)=(est.lambdaBS(:,p1)-mean(est.lambdaBS(:,p1)))./std(est.lambdaBS(:,p1));
-%     studBSbis(:,p1)=studBS(:,p1)+mean(est.lambdaBS(:,p1))-mean(est.lambda);
-% end
-% aa=norminv(0.75);
-
-% t test ?
-% for p1=1:1:P
-%     %elBS(:,p1)=est.lambdaBS(:,p1)-mean(est.lambdaBS(:,p1));
-%     elBS(:,p1)=estT.lambdaBS(:,p1)-estT.lambda(p1);
-% end
-% mBS=mean(elBS,2);
-% tBS=zeros(size(mBS));
-% for p1=1:1:P
-%     %tBS=tBS+elBS(:,p1).^2;
-%     tBS=tBS+(elBS(:,p1)-mBS).^2;
-% end
-% estT.tBS=sort(tBS);
-% estT.t=sum((estT.lambda-mean(estT.lambda)).^2);
-% estT.tdec= estT.t>=estT.tBS(ihi2);
-% estT.tpval=sum(estT.tBS>estT.t)/NB;
 
 end
 
