@@ -28,19 +28,19 @@ alpha = 0.05;
 paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
 estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
 
-disp(['H = [',sprintf(' %.1f ',params.H),']'])
-disp(['H estimate = [',sprintf(' %.1f ',estbc.h),']'])
+disp(['H =                        [',sprintf(' %.1f ',params.H),']'])
+disp(['H estimate =               [',sprintf(' %.2f ',estbc.h),']'])
 
 %% Clustering based on sorted pairwise tests
 [nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
-disp(['Sorted tests: clusters = [',num2str(cluster),'], ',num2str(nbcluster),' clusters'])
+disp(['Sorted tests:              clusters = [',num2str(cluster),'], ',num2str(nbcluster),' clusters'])
 
 %% Modified self-similarity exponent values
-disp(['Adapted scaling exponents:[',sprintf(' %.2f ',averagedClusters(estT.h,cluster)),']'])
+disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(estT.h,cluster)),']'])
 
 %% Clustering based on alternative sorted pairwise tests
 [nbcluster_v2, cluster_v2] = successiveTestClustering(estT.decsortHocpw_v2);
-disp(['Sorted tests: clusters = [',num2str(cluster_v2),'], ',num2str(nbcluster),' clusters'])
+disp(['Alternative sorted tests:  clusters = [',num2str(cluster_v2),'], ',num2str(nbcluster),' clusters'])
 
 %% Modified self-similarity exponent values
-disp(['Adapted scaling exponents:[',sprintf(' %.2f ',averagedClusters(estT.h,cluster_v2)),']'])
+disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(estT.h,cluster_v2)),']'])
