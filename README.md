@@ -22,8 +22,6 @@ paramsEst.NB = 0; paramsEst.LB = 0;
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
 The parameters to take into account in the input structure `paramsEst` of OFBM_estimBC_BS are:
-
-  - `R`, the number of realizations of the Monte Carlo vector;
   - `Jref`, reference scale under which several wavelet spectra are computed with the same number wavelet coeficients;
   - `j2`, last scale for analysis;
   - `j1`, first scale for analysis;
