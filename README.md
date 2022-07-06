@@ -50,15 +50,12 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 
 % testing procedure
-alpha = 0.05; % significance level
-paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
-estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
+alpha = 0.05;
+estT = OFBM_estimBC_BS_test(estbc,alpha);
 % cluster the self-similarity exponents
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
-The parameters to take into account in the input structure `paramsTest` of OFBM_estimBC_BS_test are:
-  - `P`, the number of components;
-  - `NB`, number of bootstrap resampling.
+The parameters `alpha` of OFBM_estimBC_BS_test is the significance level of the multiple hypothesis test.
 
 
 Another clustering method is available:
