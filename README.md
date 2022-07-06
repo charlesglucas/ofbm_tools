@@ -8,7 +8,9 @@ OFBM tools is a multivariate sel-similarity analysis matlab package. It permits 
 The following matlab package is required: [WLBMF](https://www.irit.fr/~Herwig.Wendt/software.html).
 
 ## References
-  - [Lucas et al., 2021](https://www.irit.fr/~Herwig.Wendt/data/LucasEUSIPCO2021.pdf)
+  - [Lucas et al., 2021](https://eurasip.org/Proceedings/Eusipco/Eusipco2021/pdfs/0001960.pdf)
+  - [Lucas et al., 2022](https://ieeexplore.ieee.org/document/9747448)
+  - 
   
 ## Quick start
 The basic syntax to run OFBM Tools is as follows:
