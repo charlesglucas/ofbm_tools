@@ -1,7 +1,6 @@
-function [estT] = OFBM_estimBC_BS_test(est,aa,params)
+function [estT] = OFBM_estimBC_BS_test(est,alpha)
 %  Input:     est:     structure of estimation method 
-%             alpha:   significance level of the tests     
-%             params:  structure of parameters
+%             alpha:   significance level of the tests   
 %
 %  Output:    estT:    structure of estimation method with testing
 %                   procedures in addition
@@ -9,16 +8,18 @@ function [estT] = OFBM_estimBC_BS_test(est,aa,params)
 % Charles-Gérard Lucas, ENS Lyon, 2021
 
 estT = est;
-P = params.P;
-NB = params.NB;
-tc=norminv(1-aa/2);
+P = size(est.lambdaBS,2);
+NB = size(est.lambdaBS,1);
+tc=norminv(1-alpha/2);
 %tcbis = icdf('normal',1-aa/2,0,1);
 %tc2=norminv(1-aa);
-tc2 = icdf('HalfNormal',1-aa,0,1);
-ilo=round(aa/2*NB);
-ihi=round((1-aa/2)*NB);
-ihi2=round((1-aa)*NB);
+tc2 = icdf('HalfNormal',1-alpha,0,1);
+ilo=round(alpha/2*NB);
+ihi=round((1-alpha/2)*NB);
+ihi2=round((1-alpha)*NB);
 
+estT.lambdaBS = real(estT.lambdaBS);
+estT.lambda = real(estT.lambda);
 estT.lambdaBSsort=sort(estT.lambdaBS-mean(estT.lambdaBS),2,'ascend');
 estT.lambdaBSsortH1=sort(estT.lambdaBS,2,'ascend');
 
@@ -65,7 +66,7 @@ for p1=1:1:P-1
         invSigma = inv(cov(estT.lambdaBS(:,p1),estT.lambdaBS(:,p2)));
         cL = estT.lambda([p1,p2]) - mean(estT.lambda([p1,p2]));
         estT.Tpw(p1,p2) = sum(cL*invSigma*cL');
-        estT.decTpw(p1,p2) = estT.Tpw(p1,p2) >= chi2inv(1-aa,1);
+        estT.decTpw(p1,p2) = estT.Tpw(p1,p2) >= chi2inv(1-alpha,1);
         estT.pvalTpw(p1,p2) = 1 - chi2cdf(estT.Tpw(p1,p2),1);
     end
 end
@@ -73,7 +74,7 @@ end
 % FDR correction for half-normal test
 PvalSeq = estT.pvalsort;
 PvalSeq(P,:) = zeros(1,P);
-[dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),aa);
+[dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),alpha);
 for r=1:6, for k=1:P-1, decs(r,index(k)) = dec(r,k); end; end
 estT.decsortpw = decs(1,:);
 estT.decsortBFpw = decs(4,:);
@@ -92,7 +93,7 @@ estT.decsortYek2 = pairwiseTestProduct(decs(6,:));
 % using folded normal parameter estimation
 PvalSeq = estT.pvalsort_v2;
 PvalSeq(P,:) = zeros(1,P);
-[dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),aa);
+[dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),alpha);
 for r=1:6, for k=1:P-1, decs(r,index(k)) = dec(r,k); end; end
 estT.decsortpw_v2 = decs(1,:);
 estT.decsortBFpw_v2 = decs(4,:);
@@ -110,7 +111,7 @@ estT.decsortYek2_v2 = pairwiseTestProduct(decs(6,:));
 % FDR correction for non parametric sorted test
 PvalSeq = estT.pvalBSsort;
 PvalSeq(P,:) = zeros(1,P);
-[dec,~,~,index] = fdrcorrection( diag(PvalSeq,1),aa);
+[dec,~,~,index] = fdrcorrection( diag(PvalSeq,1),alpha);
 for r=1:4, for k=1:P-1, decs(r,index(k)) = dec(r,k); end; end
 estT.decsortBSpw = decs(1,:);
 estT.decsortBFBSpw = decs(4,:);
@@ -128,7 +129,7 @@ estT.decsortYek2BS = pairwiseTestProduct(decs(6,:));
 % FDR correction for normal test
 PvalSeq = estT.pval;
 PvalSeq(P,:) = zeros(1,P);
-[dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),aa);
+[dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),alpha);
 for r=1:4, for k=1:P-1, decs(r,index(k)) = dec(r,k); end; end
 estT.decpw = decs(1,:);
 estT.decBFpw = decs(4,:);
@@ -146,7 +147,7 @@ estT.decYek2 = pairwiseTestProduct(decs(6,:));
 PvalSeq = estT.pvalBS;
 PvalSeq(P,:) = zeros(1,P);
 estT.pvalseq = diag(PvalSeq,1);
-[dec,~,~,index] = fdrcorrection(estT.pvalseq,aa);
+[dec,~,~,index] = fdrcorrection(estT.pvalseq,alpha);
 for r=1:4, for k=1:P-1, decs(r,index(k)) = dec(r,k); end; end
 estT.decBSpw = decs(1,:);
 estT.decBFBSpw = decs(4,:);
@@ -165,7 +166,7 @@ estT.invSigma = inv(cov(estT.lambdaBS));
 cL = estT.lambda - mean(estT.lambda);
 estT.T=cL*estT.invSigma*cL';
 estT.T2=sum( (estT.lambda-mean(estT.lambda)).^2 );
-estT.Tdec = estT.T >= chi2inv(1-aa,P-1);
+estT.Tdec = estT.T >= chi2inv(1-alpha,P-1);
 estT.Tpval = 1 - chi2cdf(estT.T,P-1);
 
 end
