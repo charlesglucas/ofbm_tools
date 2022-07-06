@@ -39,7 +39,7 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
 The main parameters contained in the structures `est` and `estbc` returned by OFBM_estimBC_BS are:
   - `est.hU`, matrix of univariate-like estimates of the self similarity exponents;
   - `est.h`, classical multivariate estimates of the self similarity exponents;
-  - `estbs.h`, bias corrected multivariate estimates of the self similarity exponents.
+  - `estbc.h`, bias corrected multivariate estimates of the self similarity exponents.
     
 The clustering of the scaling exponents need to run the estimation with adapted parameters:
 ```
@@ -58,7 +58,7 @@ estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
 ```
 The parameters to take into account in the input structure `paramsTest` of OFBM_estimBC_BS_test are:
   - `P`, the number of components;
-  -  `NB`, number of bootstrap resampling.
+  - `NB`, number of bootstrap resampling.
 
 
 Another clustering method is available:
