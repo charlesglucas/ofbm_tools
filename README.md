@@ -8,8 +8,8 @@ OFBM tools is a multivariate sel-similarity analysis matlab package. It permits 
 The following matlab package is required: [WLBMF](https://www.irit.fr/~Herwig.Wendt/software.html).
 
 ## References
-  - [Lucas et al., 2021](https://eurasip.org/Proceedings/Eusipco/Eusipco2021/pdfs/0001960.pdf)
   - [Lucas et al., 2022](https://ieeexplore.ieee.org/document/9747448)
+  - [Lucas et al., 2021](https://eurasip.org/Proceedings/Eusipco/Eusipco2021/pdfs/0001960.pdf)
   
 ## Quick start
 The basic syntax to run OFBM Tools is as follows:
@@ -44,8 +44,7 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
     
 The clustering of the scaling exponents need to run the estimation with adapted parameters:
 ```
-% parameters of the estimation for clustering 
-% bootstrap estimates are needed for the pairwise tests
+% parameters of the estimation for clustering (ootstrap estimates are needed for the pairwise tests)
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
 % return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
