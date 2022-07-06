@@ -10,7 +10,6 @@ The following matlab package is required: [WLBMF](https://www.irit.fr/~Herwig.We
 ## References
   - [Lucas et al., 2021](https://eurasip.org/Proceedings/Eusipco/Eusipco2021/pdfs/0001960.pdf)
   - [Lucas et al., 2022](https://ieeexplore.ieee.org/document/9747448)
-  - 
   
 ## Quick start
 The basic syntax to run OFBM Tools is as follows:
