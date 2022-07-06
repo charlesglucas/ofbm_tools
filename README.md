@@ -26,9 +26,9 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
   - `j2`, last scale for analysis;
   - `Jref`, reference scale under which several wavelet spectra are computed with the same number wavelet coeficients;
   - `wtype`, kind of weighting used in the linear regressions:
-    - 0 for no weigthing  (i.e., uniform weights);
+    - 0 for no weighting  (i.e., uniform weights);
     - 1 for 1/nj weights  (suitable for fully Gaussian data);
-    - 2 for use variance of the estimates;
+    - 2 to use variance of the estimates;
   - `NB`, number of bootstrap resampling;
   - `LB`, number of blocks for the bootstrap resampling;
   - `Nwt`, number of vanishing moments of the wavelet;
