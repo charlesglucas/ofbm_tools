@@ -25,8 +25,8 @@ paramsEst.LB = 2*paramsEst.Nwt;
 
 %% Testing procedure
 alpha = 0.05;
-paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
-estT = OFBM_estimBC_BS_test(estbc,alpha,paramsTest);
+%paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
+estT = OFBM_estimBC_BS_test(estbc,alpha);
 
 disp(['H =                        [',sprintf(' %.1f ',params.H),']'])
 disp(['H estimate =               [',sprintf(' %.2f ',estbc.h),']'])
