@@ -23,8 +23,8 @@ paramsEst.NB = 0; paramsEst.LB = 0;
 ```
 The parameters to take into account in the input structure `paramsEst` of OFBM_estimBC_BS are:
   - `Jref`, reference scale under which several wavelet spectra are computed with the same number wavelet coeficients;
-  - `j2`, last scale for analysis;
   - `j1`, first scale for analysis;
+  - `j2`, last scale for analysis;
   - `wtype`, kind of weighting used in the linear regressions:
     - 0: no weigthing  (i.e., uniform weights);
     - 1: 1/nj weights  (suitable for fully Gaussian data);
