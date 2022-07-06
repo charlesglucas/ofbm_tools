@@ -25,7 +25,7 @@ paramsEst.NB = 0; paramsEst.LB = 0;
 The parameters to take into account in the input structure `paramsEst` of OFBM_estimBC_BS are:
   - `FBM`, type of the process:
     - 1 for operator fractional Brownian motion (ofBm);
-    - 0 for operator fractional Gaussian noise (ofGn).
+    - 0 for operator fractional Gaussian noise (ofGn);
   - `Nwt`, number of vanishing moments of the wavelet;
   - `j1`, first scale for analysis;
   - `j2`, last scale for analysis;
@@ -35,7 +35,7 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
     - 1 for 1/nj weights  (suitable for fully Gaussian data);
     - 2 to use variance of the estimates;
   - `NB`, number of bootstrap resampling;
-  - `LB`, number of blocks for the bootstrap resampling;
+  - `LB`, number of blocks for the bootstrap resampling.
 
 The main parameters contained in the structures `est` and `estbc` returned by OFBM_estimBC_BS are:
   - `est.hU`, matrix of univariate-like estimates of the self similarity exponents;
