@@ -20,7 +20,7 @@ paramsEst.Nwt = 2 ; paramsEst.FigNum = 10 ; paramsEst.wtype = 1 ;
 paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ; 
 paramsEst.NB = 0; paramsEst.LB = 0;
 % return self-similarity exponent estimation
-[est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
+[est,estbc] = OFBM_estimBC_BS(data,paramsEst);
 ```
 The parameters to take into account in the input structure `paramsEst` of OFBM_estimBC_BS are:
   - `FBM`, type of the process:
@@ -42,7 +42,7 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
   - `est.h`, classical multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
     
-The count of the self-similarity exponents needs to run OFBM_estimBC_BS with adapted parameters for the bootstrap procedure :
+The count of the self-similarity exponents needs to run OFBM_estimBC_BS with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
 % parameters of the estimation for clustering
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
