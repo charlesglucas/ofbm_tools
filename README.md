@@ -29,7 +29,7 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
   - `Nwt`, number of vanishing moments of the wavelet;
   - `j1`, first scale for analysis;
   - `j2`, last scale for analysis;
-  - `Jref`, reference scale under which eigenvalues have the same bias;
+  - `Jref`, reference scale under which eigenvalues have same bias;
   - `wtype`, kind of weighting used in the linear regressions:
     - 0 for no weighting  (i.e., uniform weights);
     - 1 for 1/nj weights  (suitable for fully Gaussian data);
