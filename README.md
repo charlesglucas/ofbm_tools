@@ -58,7 +58,7 @@ estT = OFBM_estimBC_BS_test(estbc,alpha);
 The parameters `alpha` of OFBM_estimBC_BS_test is the False Discovery Rate of the multiple hypothesis test.
 
 
-Another clustering method is available:
+Another test parameter estimation approach is available for the clustering method:
 ```
 % cluster the self-similarity exponents
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw_v2);
