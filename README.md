@@ -33,7 +33,7 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
   - `wtype`, kind of weighting used in the linear regressions:
     - 0 for no weighting  (i.e., uniform weights);
     - 1 for 1/nj weights with nj the wavelet sample size at scale j (suitable for fully Gaussian data);
-    - 2 to use variance of the estimates;
+    - 2 to use the variance of the estimates;
   - `NB`, number of bootstrap resampling;
   - `LB`, number of blocks for the bootstrap resampling.
 
