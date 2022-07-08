@@ -2,7 +2,7 @@ OFBM tools
 ===
 
 ## Description
-OFBM tools is a multivariate sel-similarity analysis matlab package. It permits to estimate and group the values of scaling exponents across multivariate time series modeled by an operator fractional Brownian motion (ofBm). The estimation is based on linear regressions of wavelet eigenvalues across scales. The clustering strategy relies on successive pairwise tests between ordered estimates. Two methods are proposed to estimate the paramters of the pairwise tests.
+OFBM tools is a multivariate self-similarity analysis matlab package. It permits to estimate and group the values of scaling exponents across multivariate time series modeled by an operator fractional Brownian motion (ofBm). The estimation is based on linear regressions of wavelet eigenvalues across scales. The clustering strategy relies on successive pairwise tests between ordered estimates. Two methods are proposed to estimate the paramters of the pairwise tests.
 
 ## Requirements
 The following matlab package is required: [WLBMF](https://www.irit.fr/~Herwig.Wendt/software.html).
