@@ -42,7 +42,7 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
   - `est.h`, classical multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
     
-The clustering of the scaling exponents need to run the estimation with adapted parameters:
+The clustering strategy to count the scaling exponents need to run the estimation with adapted parameters:
 ```
 % parameters of the estimation for clustering (bootstrap estimates are needed for the pairwise tests)
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
