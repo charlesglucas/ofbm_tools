@@ -16,7 +16,7 @@ The basic syntax to run OFBM Tools is as follows:
 
 ```
 % parameters of the estimation
-paramsEst.Nwt = 2 ; paramsEst.FigNum = 10 ; paramsEst.wtype = 1 ;
+paramsEst.Nwt = 2 ; paramsEst.FigNum = 1 ; paramsEst.wtype = 1 ;
 paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ; 
 paramsEst.NB = 0; paramsEst.LB = 0;
 % return self-similarity exponent estimation
