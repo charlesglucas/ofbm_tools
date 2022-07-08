@@ -55,7 +55,7 @@ estT = OFBM_estimBC_BS_test(estbc,alpha);
 % cluster the self-similarity exponents
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
-The parameters `alpha` of OFBM_estimBC_BS_test is the significance level of the multiple hypothesis test.
+The parameters `alpha` of OFBM_estimBC_BS_test is the False Discovery Rate of the multiple hypothesis test.
 
 
 Another clustering method is available:
