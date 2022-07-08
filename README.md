@@ -38,9 +38,9 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
   - `LB`, number of blocks for the bootstrap resampling.
 
 The main parameters contained in the structures `est` and `estbc` returned by OFBM_estimBC_BS are:
-  - `est.hU`, matrix of univariate-like estimates of the self similarity exponents;
-  - `est.h`, classical multivariate estimates of the self similarity exponents;
-  - `estbc.h`, bias corrected multivariate estimates of the self similarity exponents.
+  - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
+  - `est.h`, classical multivariate self-similarity exponent estimates;
+  - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
     
 The clustering of the scaling exponents need to run the estimation with adapted parameters:
 ```
