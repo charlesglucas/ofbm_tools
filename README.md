@@ -28,11 +28,9 @@ Colloque Francophone de Traitement du Signal et des Images (GRETSI). [Download](
 The basic syntax to run OFBM Tools is as follows:
 
 ```
-% parameters of the estimation
 paramsEst.Nwt = 2 ; paramsEst.FigNum = 1 ; paramsEst.wtype = 1 ;
 paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ; 
 paramsEst.NB = 0; paramsEst.LB = 0;
-% return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst);
 ```
 The parameters to take into account in the input structure `paramsEst` of OFBM_estimBC_BS are:
@@ -59,15 +57,13 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
 
 The count of the self-similarity exponents needs to run OFBM_estimBC_BS with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
-% parameters of the estimation for clustering
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
-% return self-similarity exponent estimation
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
+```
 
-% testing procedure
-alpha = 0.05;
-estT = OFBM_estimBC_BS_test(estbc,alpha);
-% cluster the self-similarity exponents
+Then the testing procedure can be run as follows:
+```
+alpha = 0.05; estT = OFBM_estimBC_BS_test(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
 The parameters `alpha` of OFBM_estimBC_BS_test is the False Discovery Rate of the multiple hypothesis test.
