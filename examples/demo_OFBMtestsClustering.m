@@ -1,4 +1,5 @@
-%% estimate and cluster multivariate self-similarity exponents
+%% estimate and cluster multivariate self-similarity exponents using
+%% a bootstrap-based testing procedure
 % CGL, October 2021.
 
 clc
@@ -7,7 +8,7 @@ close all
 format compact
 
 addpath('../include/')
-addpath(genpath('../WLBMF_tool/'))
+%addpath(genpath('../WLBMF_tool/'))
 load('../data/result_estimbc_sizeH6.mat')
 
 %% Estimation and Bootstrap
@@ -25,22 +26,21 @@ paramsEst.LB = 2*paramsEst.Nwt;
 
 %% Testing procedure
 alpha = 0.05;
-%paramsTest.P = size(data,1); paramsTest.NB = paramsEst.NB;
-estT = OFBM_estimBC_BS_test(estbc,alpha);
+test = OFBM_estimBC_BS_test(estbc,alpha);
 
 disp(['H =                        [',sprintf(' %.1f ',params.H),']'])
 disp(['H estimate =               [',sprintf(' %.2f ',estbc.h),']'])
 
 %% Clustering based on sorted pairwise tests
-[nbcluster, cluster] = successiveTestClustering(estT.decsortHocpw);
+[nbcluster, cluster] = successiveTestClustering(test.decsortHocpw);
 disp(['Sorted tests:              clusters = [',num2str(cluster),'], ',num2str(nbcluster),' clusters'])
 
 %% Modified self-similarity exponent values
-disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(estT.h,cluster)),']'])
+disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(est.h,cluster)),']'])
 
 %% Clustering based on alternative sorted pairwise tests
-[nbcluster_v2, cluster_v2] = successiveTestClustering(estT.decsortHocpw_v2);
+[nbcluster_v2, cluster_v2] = successiveTestClustering(test.decsortHocpw_v2);
 disp(['Alternative sorted tests:  clusters = [',num2str(cluster_v2),'], ',num2str(nbcluster),' clusters'])
 
 %% Modified self-similarity exponent values
-disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(estT.h,cluster_v2)),']'])
+disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(est.h,cluster_v2)),']'])

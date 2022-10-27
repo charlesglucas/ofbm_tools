@@ -1,4 +1,4 @@
-%% try conquere-and-divide bias correction
+%% estimate multivariate self-similarity exponents
 % CGL, October 2021.
 
 clc
@@ -7,7 +7,7 @@ close all
 format compact
 
 addpath('../include/')
-addpath(genpath('../WLBMF_tool/'))
+%addpath(genpath('../WLBMF_tool/'))
 load('../data/result_estimbc_sizeH6.mat')
 
 %% Estimation
