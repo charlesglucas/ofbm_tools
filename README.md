@@ -12,8 +12,14 @@ The estimation is based on linear regressions of wavelet eigenvalues across scal
 This toolbox is designed to work with Matlab 2020b.
 
 ## References
-  - [Lucas et al., 2022](https://ieeexplore.ieee.org/document/9747448)
-  - [Lucas et al., 2021](https://eurasip.org/Proceedings/Eusipco/Eusipco2021/pdfs/0001960.pdf)
+
+> **[Charles-Gérard Lucas](https://perso.ens-lyon.fr/charles.lucas), [Patrice Abry](https://perso.ens-lyon.fr/patrice.abry), Herwig Wendt, Gustavo Didier,**
+*Counting the number of different scaling exponents in multivariate scale-free dynamics: Clustering by bootstrap in the wavelet* International Conference on Acoustics, Speech, & Signal Processing (ICASSP)  [Download](https://hal.archives-ouvertes.fr/hal-03735481/document)
+
+> **[Charles-Gérard Lucas](https://perso.ens-lyon.fr/charles.lucas), Herwig Wendt, [Patrice Abry](https://perso.ens-lyon.fr/patrice.abry), Gustavo Didier,**
+*Multivariate time-scale bootstrap for testing the equality of selfsimilarity parameters* 
+Colloque Francophone de Traitement du Signal et des Images (GRETSI)  [Download](https://hal.archives-ouvertes.fr/hal-03735529)
+
   
 ## Quick start
 The basic syntax to run OFBM Tools is as follows:
