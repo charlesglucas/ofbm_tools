@@ -1,4 +1,8 @@
 function [mu,sigma] = FNparameter(y,xinit)
+% returns Folded Normal Parmeters from samples y
+%
+% Charles-Gérard Lucas, ENS Lyon, 2021
+
 if nargin<2, xinit = 0.9*sqrt(mean(y.^2)); end
 N = length(y);
 fun = @(x) f(x,y,N);

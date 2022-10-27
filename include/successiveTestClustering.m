@@ -1,4 +1,6 @@
 function [nbcluster, cluster] = successiveTestClustering(dec)
+% return number of clusters and clusters from pairwise decisions on 
+% ordered exponents
 % Charles-Gérard Lucas, ENS Lyon, August 2021
 
 K = length(dec);

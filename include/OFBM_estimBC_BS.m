@@ -1,11 +1,10 @@
 
-% function [est,estbc,nj,JM] = OFBM_estim_divBC_BS(data,Nwt,j1,j2,wtype,Jref,NB,LB,FigNum)
 function [est,estbc] = OFBM_estimBC_BS(data,params) 
 
 % returns the univariate-like and multivariate estimations in a structure
 % 'est' and the bias corrected estimation in a structure 'estbc', which is
 % empty when Jref = 0
-
+%
 %
 %  Input:     data:   matrix of size P x N, with P number of components and N 
 %                   the sample size, corresponding to an ofBm model     
@@ -36,7 +35,7 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 %             estbc:   structure related to a bias corrected multivarate estimation,
 %                   which is empty when Jref = 0
 %
-% 
+% Herwig Wendt, Patrice Abry and Charles-Gérard Lucas, ENS Lyon, 2020 - 2022
 
 
 estbc = {};
@@ -54,9 +53,6 @@ if ~isfield(params,'nbcoeffmin'), params.nbcoeffmin = 8 ; end
 if ~isfield(params,'nbcompmaxplot'), params.nbcompmaxplot = 5 ; end
 if ~isfield(params,'Jrefplot'), params.Jrefplot = 1 ; end
 if ~isfield(params,'gamint'), params.gamint = 0.5; end
-
-
-if params.Jref > params.j2, params.Jref = params.j2; end
 if params.j2 <= params.j1, params.j1 = params.j2-2; end
 
 Nwt = params.Nwt ; 
@@ -115,16 +111,17 @@ end
 est.JMj = JMj ; 
 est.j2j = j2j ; 
 
+Jref = min([Jref,j2j]);
+est.j2 = j2;
+est.Jref = Jref;
 
-Jref=min(Jref,j2);
-
-
-% HW: if Jref==0, don't divide and use standard estimation
+% if Jref==0, don't divide and use standard estimation
 if Jref ~=0
     Ldiv = nj.W(Jref);
     NJ2 = max(Ldiv,floor(nj.W/Ldiv)*Ldiv);
     NJ2 = min([NJ2;nj.W]);
 end
+
 
 for k = 1:1:P
     for m = 1:1:P
@@ -137,7 +134,7 @@ for k = 1:1:P
                 WWBS(k,m,:,j) = tmpBS ;
             end
             
-            if Jref ~= 0               
+            if Jref ~= 0    
                 nntmp=min(Ldiv,NJ2(j));
                 tmp=mean(reshape(real(WD{k}(j).value_noabs(1:NJ2(j)).*WD{m}(j).value_noabs(1:NJ2(j))),nntmp,[]));
                 WWbc{j}(k,m,:) = tmp ; 
@@ -172,15 +169,16 @@ for j = 1:JM
         clear lamb Vtmp
         for ib=1:nb
             tmp2=squeeze(WWbc{j}(:,:,ib));
-            [V0,Dtmpbc] = eig(tmp2) ;
+            [V0,Dtmpbc]=eig(tmp2) ;
             lamb(ib,:)=diag(Dtmpbc);
+            lamb(ib,lamb(ib,:)<=0)=NaN;
             Vtmpbc(ib,:,:)=V0;
         end
         if nb>1
-            lambdabc(j,:)=mean(lamb);
+            lambdabc(j,:) = 2.^nanmean(log2(lamb));
             VVbc(:,:,j) = squeeze(mean(Vtmpbc)) ;
         else
-            lambdabc(j,:)=lamb;
+            lambdabc(j,:) = lamb;
             VVbc(:,:,j) = Vtmpbc ;
         end
     end
@@ -194,7 +192,6 @@ for nb=1:NB
         for k = 1:1:P
             lambdaBS(k,nb,j) = Dtmp(k,k) ;
         end
-%            VVBS(:,:,nb,j) = Vtmp ;
     end
 end
 
@@ -207,41 +204,21 @@ if Jref ~= 0
                 tmp = WWBSbc{j}(:,:,nb,ib) ;
                 [Vtmpbc,Dtmpbc] = eig(tmp) ;
                 lambBSbc(:,ib)=diag(Dtmpbc);
+                lambBSbc(lambBSbc(:,ib)<=0,ib)=NaN;
             end
             try
             if ndiv>1
-                lambdaBSbc(:,nb,j) = squeeze(mean(lambBSbc,2));
+                lambdaBSbc(:,nb,j) = 2.^squeeze(mean(log2(lambBSbc),2));
             else
                 lambdaBSbc(:,nb,j) = lambBSbc;
             end
             catch
                 keyboard
             end
-            %VVBS(:,:,nb,j) = Vtmp ;
         end
     end
 end
 
-% --- bootstrap
-% for nb=1:NB
-%     for j = J1BS:JM
-%         tmp = WWBS(:,:,nb,j) ;
-%         [Vtmp,Dtmp] = eig(tmp) ;
-%         for k = 1:1:P
-%             lambdaBS(k,nb,j) = Dtmp(k,k) ;
-%         end
-%         VVBS(:,:,nb,j) = Vtmp ;
-%     end
-% end
-% if Bcorr==1;
-%     for j = J1BS:JM
-%         for k = 1:1:P
-%             lambda(j,k) = 2*lambda(j,k) - mean(squeeze(lambdaBS(k,:,j)));
-%         end
-%     end
-% end
-
-%keyboard
 for k = 1:1:P
     for m = 1:1:P
         wavcov(k,m,:)= squeeze(WW(k,m,:))./sqrt(squeeze(WW(k,k,:)).*squeeze(WW(m,m,:))) ;
@@ -277,6 +254,7 @@ est.lambdaj = lambda ;
 
 if Jref ~= 0
     JJbc = 1:1:Jbc ; 
+    lambdabc(isnan(lambdabc)) = 1e-16;
     estbc.lambdaj = lambdabc ; 
 end
 
@@ -298,11 +276,10 @@ est.j1 = j1 ;
 est.j2 = j2 ;
 est.wtype = wtype ;
 
-% --- bootstrap
-% est.lambdajmbs = mean(squeeze(lambdaBS(k,:,j))) ; 
-% est.WWBS = WWBS ;
 if NB, est.lambdajBS = lambdaBS; end
-est.hU=Regrmat(log2(squeeze(abs(est.WW))),ones(P,P,length(NJ)),NJ,wtype, j1,j2)/2;
+[est.hU,est.interceptU]=Regrmat(log2(squeeze(abs(est.WW))),ones(P,P,length(NJ)),NJ,wtype, j1,j2);
+est.hU = est.hU/2;
+
 
 if Jref ~= 0
     estbc.VVj = VVbc ;
@@ -319,14 +296,14 @@ end
 
 for p=1:1:P
     tmp = log2(lambda(:,p)') ; 
-     [slope,intercept] = SmartLDplot(tmp,NJ,ones(size(tmp)),j1,j2,wtype) ; 
+    [slope,intercept] = SmartLDplot(tmp(1:j2j(p)),NJ(1:j2j(p)),ones(1,j2j(p)),j1,j2j(p),wtype) ;
     est.lambda(p) = (slope)/2 ;  
     est.intercept(p) = intercept;
     
     % --- bootstrap
     if NB
         tmpBS=log2(abs(squeeze(lambdaBS(p,:,:))));
-        [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS,ones(size(tmpBS)),NJ,wtype, j1,j2);
+        [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS(:,1:j2j(p)),ones(size(tmpBS,1),j2j(p)),NJ(1:j2j(p)),wtype, j1,j2j(p));
         est.lambdaBS(:,p) = (slopeBS)/2 ;  
         est.meanBS(p)=mean(est.lambdaBS(:,p));
         est.varBS(p)=var(est.lambdaBS(:,p));
@@ -341,14 +318,14 @@ est.h = est.lambda + 1/2 - params.FBM ;
 if Jref ~= 0
     for p=1:1:P
         tmp = log2(lambdabc(:,p)') ; 
-         [slope,intercept] = SmartLDplot(tmp,NJ,ones(size(tmp)),j1,j2,wtype) ; 
+        [slope,intercept] = SmartLDplot(tmp(1:Jref),NJ(1:Jref),ones(1,Jref),j1,Jref,wtype) ; 
         estbc.lambda(p) = (slope)/2 ;  
         estbc.intercept(p) = intercept;
 
         % --- bootstrap
         if NB
             tmpBS=log2(abs(squeeze(lambdaBSbc(p,:,:))));
-            [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS,ones(size(tmpBS)),NJ,wtype, j1,j2);
+            [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS(:,1:Jref),ones(size(tmpBS,1),Jref),NJ(1:Jref),wtype,j1,Jref);
             estbc.lambdaBS(:,p) = (slopeBS)/2 ;  
             estbc.meanBS(p)=mean(estbc.lambdaBS(:,p));
             estbc.varBS(p)=var(estbc.lambdaBS(:,p));
@@ -360,56 +337,41 @@ if Jref ~= 0
     [~,estbc.sortid]=sort(estbc.lambda,'ascend');
 end
 
-% --- bootstrap
-% est.lambdaBSsort=sort(est.lambdaBS,2,'ascend');
-% for p1=1:1:P
-%     %est.lambda(p1)=2*est.lambda(p1)-mean(est.lambdaBS(:,p1));
-%     est.meanBS(p1)=mean(est.lambdaBS(:,p1));
-%     est.varBS(p1)=var(est.lambdaBS(:,p1));
-%     est.meanBSsort(p1)=mean(est.lambdaBSsort(:,p1));
-%     est.varBSsort(p1)=var(est.lambdaBSsort(:,p1));
-% end
-
 if FigNum > 0 
-   
-    
     JMM = length(lambda(:,P)) ; 
-    %t = tiledlayout(P,P);
-    %t.TileSpacing = 'tight';
-if P<=params.nbcompmaxplot
-    figure(FigNum) ; clf 
-    for p = 1:1:P
-        for m = 1:1:P
-            if NB
-                ic = 1.96/sqrt(NB)*std(log2(abs(squeeze(WWBS))),[],3);
-                ic2 = 1.96/sqrt(NB)*std(log2(abs(squeeze(wavcovBS))),[],3);
-            end
-            subplot(P,P,(p-1)*P+m) ; 
-            %nexttile
-            if p~=m
-                plot(squeeze(est.wavcov(p,m,:)),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2) ;
-                if NB, errorbar(squeeze(est.wavcov(p,m,:)),squeeze(ic2(p,m,:)),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2) ; end
-                grid on ; 
-                axis([0 JMM+1 -1.01 1.01]) ; hold on ;
-                plot(zeros(size(squeeze(est.wavcov(p,m,:)))),'k--','MarkerSize',markersize2,'LineWidth',linewidth2) 
-                xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize2) ;
-                ylabel(['$C_{',num2str(p),num2str(m),'}(2^j)$'],'Interpreter','Latex','FontSize',fontsize2)
-                pbaspect([1.1,1,1])
-            else
-                plot(log2(abs(squeeze(est.WW(p,m,:)))),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2) ; 
-                if NB, errorbar(log2(abs(squeeze(est.WW(p,m,:)))),squeeze(ic(p,m,:)),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2); end
-                grid on ; 
-                V((p-1)*P+m,:) = axis ; 
-                xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize2) ;
-                ylabel(['$S_{',num2str(p),num2str(p),'}(2^j)$'],'Interpreter','Latex','FontSize',fontsize2)
-                pbaspect([1.1,1,1])
+    if P<=params.nbcompmaxplot
+        figure(FigNum) ; clf 
+        for p = 1:1:P
+            for m = 1:1:P
+                if NB
+                    ic = 1.96/sqrt(NB)*std(log2(abs(squeeze(WWBS))),[],3);
+                    ic2 = 1.96/sqrt(NB)*std(log2(abs(squeeze(wavcovBS))),[],3);
+                end
+                subplot(P,P,(p-1)*P+m); 
+                if p~=m
+                    plot(squeeze(est.wavcov(p,m,:)),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2) ;
+                    if NB, errorbar(squeeze(est.wavcov(p,m,:)),squeeze(ic2(p,m,:)),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2) ; end
+                    grid on ; 
+                    axis([0 JMM+1 -1.01 1.01]) ; hold on ;
+                    plot(zeros(size(squeeze(est.wavcov(p,m,:)))),'k--','MarkerSize',markersize2,'LineWidth',linewidth2) 
+                    xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize2) ;
+                    ylabel(['$C_{',num2str(p),num2str(m),'}(2^j)$'],'Interpreter','Latex','FontSize',fontsize2)
+                    pbaspect([1.1,1,1])
+                else
+                    plot(log2(abs(squeeze(est.WW(p,m,:)))),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2) ; 
+                    if NB, errorbar(log2(abs(squeeze(est.WW(p,m,:)))),squeeze(ic(p,m,:)),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2); end
+                    grid on ; 
+                    V((p-1)*P+m,:) = axis ; 
+                    xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize2) ;
+                    ylabel(['$\log_2 S_{',num2str(p),num2str(p),'}(2^j)$'],'Interpreter','Latex','FontSize',fontsize2)
+                    pbaspect([1.1,1,1])
+                end
             end
         end
-    end
-    clear Vf
-    Vf(1) = 0 ; Vf(2) = JMM+1 ; Vf(3) = min(V(:,3)) ; Vf(4) = max(V(:,4)) ; 
-    for p = 1:1:P, subplot(P,P,(p-1)*P+p) ; axis(Vf)  ; end
-    sgtitle('Wavelet spectrum','Interpreter','Latex')
+        clear Vf
+        Vf(1) = 0 ; Vf(2) = JMM+1 ; Vf(3) = min(V(:,3)) ; Vf(4) = max(V(:,4)) ; 
+        for p = 1:1:P, subplot(P,P,(p-1)*P+p) ; axis(Vf)  ; end
+        sgtitle('Wavelet spectrum','Interpreter','Latex')
     end
 
     for j = 1:JM, dWW(j,:) = diag(WW(:,:,j)); end
@@ -432,7 +394,7 @@ if P<=params.nbcompmaxplot
     xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
     ylabel('$\log_2 S_{mm}(2^j)$','Interpreter','Latex','FontSize',fontsize)
     set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
-        
+
     if NB, ic = 1.96/sqrt(NB)*squeeze(std(log2(lambdaBS),[],2))'; end
     hh = figure(FigNum+2) ; clf ; 
     set(gca,'FontSize',fontsize) ; 
@@ -482,7 +444,7 @@ if P<=params.nbcompmaxplot
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)$','Interpreter','Latex','FontSize',fontsize)
         set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
-      
+
         hh = figure(FigNum+4) ; clf ; 
         set(gca,'FontSize',fontsize) ; 
         for p = 1:1:P
@@ -494,7 +456,7 @@ if P<=params.nbcompmaxplot
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)$','Interpreter','Latex','FontSize',fontsize)
         set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
-    
+
         hh = figure(FigNum+5) ; clf ; 
         set(gca,'FontSize',fontsize) ; 
         for p = 1:1:P
@@ -506,31 +468,7 @@ if P<=params.nbcompmaxplot
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)  - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
         set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
-    
     end
 end
-    
-%    if Jref ~=0
-%         JMM = length(lambdabc(:,P)) ; 
-%         figure(FigNum+100) ; clf 
-%         if P<11
-%         for p = 1:1:P
-%             for m = 1:1:P
-%                 subplot(P,P,(p-1)*P+m) ; 
-%                 if p~=m
-%                     plot(squeeze(estbc.wavcov(p,m,:)),'or-') ; grid on ;  
-%                     axis([0 JMM+1 -1.01 1.01]) ; hold on ;
-%                     plot(zeros(size(squeeze(estbc.wavcov(p,m,:)))),'k--') 
-%                 else
-%                     plot(log2(abs(squeeze(meanWWbc(p,m,:)))),'or-') ; grid on ; 
-%                     V((p-1)*P+m,:) = axis ; 
-%                 end
-%             end
-%         end
-%         clear Vf
-%         Vf(1) = 0 ; Vf(2) = JMM+1 ; Vf(3) = min(V(:,3)) ; Vf(4) = max(V(:,4)) ; 
-%         for p = 1:1:P, subplot(P,P,(p-1)*P+p) ; axis(Vf)  ; end
-%         end
-%    end
 
 end
