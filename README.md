@@ -25,6 +25,8 @@ Colloque Francophone de Traitement du Signal et des Images (GRETSI). [Download](
 The basic syntax to run OFBM Tools is as follows:
 
 ```
+
+# Estimation
 % parameters of the estimation
 paramsEst.Nwt = 2 ; paramsEst.FigNum = 1 ; paramsEst.wtype = 1 ;
 paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ; 
@@ -51,7 +53,8 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
   - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
   - `est.h`, classical multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
-    
+ 
+# Clustering 
 The count of the self-similarity exponents needs to run OFBM_estimBC_BS with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
 % parameters of the estimation for clustering
