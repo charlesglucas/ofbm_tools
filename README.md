@@ -17,7 +17,7 @@ OFBM Tools is a multivariate self-similarity analysis matlab package. It permits
 
 The estimation is based on linear regressions of wavelet eigenvalues across scales. A de-biased estimator based on the computation of wavelet spectra from equal number of wavelet coefficients is designed. To count the scaling exponents, a clustering strategy is derived from parametric pairwise hypothesis tests between successive ordered estimates: two bootstrap-based estimation methods are proposed for the computation of the test parameters.
 
-## Recommendations
+## Recommendation
 This toolbox is designed to work with [**Matlab 2020b**](https://fr.mathworks.com/products/new_products/release2020b.html).
 
 ## Quick start
