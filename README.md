@@ -67,9 +67,8 @@ alpha = 0.05; estT = OFBM_estimBC_BS_test(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
 
-Another test parameter estimation approach is available for the clustering method:
+Another based-bootstrap test parameter estimation approach is available for the clustering method:
 ```
-% cluster the self-similarity exponents
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw_v2);
 ```
 
