@@ -14,11 +14,11 @@ This toolbox is designed to work with [Matlab 2020b](https://fr.mathworks.com/pr
 ## References
 
 > **[Charles-Gérard Lucas](https://perso.ens-lyon.fr/charles.lucas), [Herwig Wendt](https://www.irit.fr/~Herwig.Wendt/), [Patrice Abry](https://perso.ens-lyon.fr/patrice.abry), [Gustavo Didier](http://www2.tulane.edu/~gdidier/),**
-*Multivariate time-scale bootstrap for testing the equality of selfsimilarity parameters* 
-Colloque Francophone de Traitement du Signal et des Images (GRETSI)  [Download](https://hal.archives-ouvertes.fr/hal-03735529)
+*Multivariate time-scale bootstrap for testing the equality of selfsimilarity parameters,* 
+Colloque Francophone de Traitement du Signal et des Images (GRETSI). [Download](https://hal.archives-ouvertes.fr/hal-03735529)
 
 > **[Charles-Gérard Lucas](https://perso.ens-lyon.fr/charles.lucas), [Patrice Abry](https://perso.ens-lyon.fr/patrice.abry), [Herwig Wendt](https://www.irit.fr/~Herwig.Wendt/), [Gustavo Didier](http://www2.tulane.edu/~gdidier/),**
-*Counting the number of different scaling exponents in multivariate scale-free dynamics: Clustering by bootstrap in the wavelet* International Conference on Acoustics, Speech, & Signal Processing (ICASSP)  [Download](https://hal.archives-ouvertes.fr/hal-03735481/document)
+*Counting the number of different scaling exponents in multivariate scale-free dynamics: Clustering by bootstrap in the wavelet,* International Conference on Acoustics, Speech, & Signal Processing (ICASSP). [Download](https://hal.archives-ouvertes.fr/hal-03735481/document)
 
   
 ## Quick start
