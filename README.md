@@ -61,13 +61,11 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
 
-Then the testing procedure can be run as follows:
+Then the testing procedure with a false discovery rate `alpha` for the multiple hypothesis test can be run as follows:
 ```
 alpha = 0.05; estT = OFBM_estimBC_BS_test(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
-The parameters `alpha` of OFBM_estimBC_BS_test is the False Discovery Rate of the multiple hypothesis test.
-
 
 Another test parameter estimation approach is available for the clustering method:
 ```
