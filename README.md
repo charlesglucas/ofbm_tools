@@ -4,7 +4,7 @@ OFBM Tools
 ## Description
 OFBM Tools is a multivariate self-similarity analysis matlab package. It permits to estimate and count the values of scaling exponents across multivariate time series modeled by an operator fractional Brownian motion (ofBm). The estimation is based on linear regressions of wavelet eigenvalues across scales. The clustering strategy relies on parametric pairwise hypothesis tests between successive ordered estimates: two bootstrap-based estimation methods are proposed for the test parameters.
 
-<p><img class="img-responsive img-portfolio" src="images/multivariateHestim.svg" alt="" width="800px" height="300px"></p>
+<img src="images/multivariateHestim.svg" alt="" width="800px" height="300px">
 
 ## Recommendations
 This toolbox is designed to work with Matlab 2020b.
