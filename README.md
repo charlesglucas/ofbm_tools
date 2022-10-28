@@ -23,7 +23,7 @@ This toolbox is designed to work with [**Matlab 2020b**](https://fr.mathworks.co
 
 **Estimation**
 
-The basic syntax to run OFBM Tools is as follows:
+The basic syntax to run `OFBM_estimBC_BS` is as follows:
 
 ```
 paramsEst.Nwt = 2 ; paramsEst.FigNum = 1 ; paramsEst.wtype = 1 ;
@@ -31,6 +31,7 @@ paramsEst.j1 = 8; paramsEst.j2 = 11; paramsEst.Jref = paramsEst.j2 ;
 paramsEst.NB = 0; paramsEst.LB = 0;
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst);
 ```
+
 The parameters to take into account in the input structure `paramsEst` of OFBM_estimBC_BS are:
   - `FBM`, type of the process:
     - 1 for operator fractional Brownian motion (ofBm);
@@ -53,7 +54,7 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
  
 **Clustering**
 
-The count of the self-similarity exponents needs to run OFBM_estimBC_BS with adapted parameters `paramsEst` for the bootstrap procedure:
+The count of the self-similarity exponents needs to run `OFBM_estimBC_BS` with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
