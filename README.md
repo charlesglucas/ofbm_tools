@@ -62,7 +62,7 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 
 The routine `OFBM_estimBC_BS_test` gives decisions $d_{\alpha}^{m}$ with a false discovery rate $\alpha$ for hypothesis $H_m=H_{m+1}$. These decisions naturally separate the estimates in different clusters.
 <p align="center">
-  <img width="300" src="http://perso.ens-lyon.fr/charles.lucas/images/naiveClustering.svg">
+  <img width="600" src="http://perso.ens-lyon.fr/charles.lucas/images/naiveClustering.svg">
 </p>
 
 The clustering strategy with a false discovery rate `alpha` for the multiple hypothesis test can be run as follows:
