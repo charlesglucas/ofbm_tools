@@ -52,7 +52,8 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
   - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
   - `est.h`, classical multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
- 
+</details>
+
 <details open>
   <summary><strong>Clustering</strong></summary>
 
@@ -79,3 +80,4 @@ Another bootstrap-based test parameter estimation, described in [Lucas et al., G
 ```
 
 Examples with synthetic ofBm can also be found in the `examples` folder.
+</details>
