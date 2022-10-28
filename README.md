@@ -76,4 +76,4 @@ Another based-bootstrap test parameter estimation approach is available for the 
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw_v2);
 ```
 
-Examples with simulated ofBm can also be found in the `examples` folder.
+Examples with synthetic ofBm can also be found in the `examples` folder.
