@@ -54,7 +54,7 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
  
 <details open>
-<summary>Clustering</summary>
+  <summary><strong>Clustering</strong></summary>
 
 The count of the self-similarity exponents needs to run `OFBM_estimBC_BS` with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
