@@ -21,7 +21,8 @@ This toolbox is designed to work with [**Matlab 2020b**](https://fr.mathworks.co
 
 ## Quick start
 
-**Estimation**
+<details open>
+<summary>**Estimation**</summary>
 
 The basic syntax to run `OFBM_estimBC_BS` is as follows:
 
@@ -52,7 +53,8 @@ The main parameters contained in the structures `est` and `estbc` returned by OF
   - `est.h`, classical multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
  
-**Clustering**
+<details open>
+<summary>Clustering</summary>
 
 The count of the self-similarity exponents needs to run `OFBM_estimBC_BS` with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
