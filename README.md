@@ -65,13 +65,13 @@ The routine `OFBM_estimBC_BS_test` gives decisions $d_{\alpha}^{(m)}$ with a fal
   <img width="500" src="http://perso.ens-lyon.fr/charles.lucas/images/naiveClustering.svg">
 </p>
 
-The clustering strategy with a false discovery rate `alpha` for the multiple hypothesis test can be run as follows:
+The clustering strategy with a false discovery rate `alpha` for the multiple hypothesis test and the bootstrap-based test parameter estimation described in [Lucas et al.,ICASSP 2022](https://hal.archives-ouvertes.fr/hal-03735481/document) can be run as follows:
 ```
 alpha = 0.05; estT = OFBM_estimBC_BS_test(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
 ```
 
-Another based-bootstrap test parameter estimation approach is available for the clustering method:
+Another bootstrap-based test parameter estimation wdescribed in [Lucas et al.,GRETSI 2022](https://hal.archives-ouvertes.fr/hal-03735529) approach is available for the clustering method:
 ```
 [nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw_v2);
 ```
