@@ -63,7 +63,7 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
 
-The routine `OFBM_estimBC_BS_test` gives decisions $d_{\alpha}^{(m)}$ with a false discovery rate $\alpha$ for hypothesis $H_m=H_{m+1}$. These decisions naturally separate the estimates in different clusters.
+The routine `OFBM_estimBC_BS_test` gives decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. These decisions naturally separate the estimates in different clusters.
 <p align="center">
   <img width="500" src="http://perso.ens-lyon.fr/charles.lucas/images/naiveClustering.svg">
 </p>
