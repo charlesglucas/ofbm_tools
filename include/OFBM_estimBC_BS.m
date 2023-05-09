@@ -32,8 +32,61 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 %
 %  Output:    est:     structure related to the univariate-like and classical
 %                   multivariate estimation
-%             estbc:   structure related to a bias corrected multivarate estimation,
+%                   - JMj: P vectors indicating the maximum octaves for
+%                   which wavelet spectrum rank is not defficient for each
+%                   component
+%                   - j2j: P vectors indicating the maximum octave of
+%                   analysis accounting for the rank defficiency for each
+%                   component
+%                   - Nj: NJ vector indicating the number of available wavelet
+%                   coefficients at each scale
+%                   - WW: P x P x NJ wavelet spectrum across the NJ
+%                   scales such that P < N   
+%                   - CondNumber: NJ condition numbers of wavelet spectrum
+%                   across scales
+%                   - rankS: NJ ranks of wavelet spectrum across scales
+%                   - wavcov: P x P x NJ wavelet coherence with NJ the number of
+%                   scales such that P < N  
+%                   - lambdaj: NJ x P matrix containing the P eigenvalues of the
+%                   wavelet spectrum WW at each scale
+%                   - VVj: P x P x NJ matrix containing the P eigenvectors of the
+%                   wavelet spectrum WW at each scale
+%                   - lambda : P multivariate estimates of Hurst exponents,
+%                   up to an   additive constant
+%                   - lambdasort : P sorted multivariate estimates of Hurst exponents,
+%                   up to an additive constant
+%                   - h: P multivariate estimates of Hurst exponents
+%                   - lambdaBS : NB x P matrix containing the NB bootstrap resamples of 
+%                   multivariate estimates of Hurst exponents, up to an additive constant
+%                   - lambdajBS: NJ x NB x P matrix containing the NB bootstrap resambles
+%                   of the P eigenvalues of the wavelet spectrum WW at each scale
+%                   - hBS: NB x P matrix containing the NB bootstrap resamples of multivariate 
+%                   Hurst exponent estimates
+%                   - intercept: P intercepts from the linear regressions of
+%                   wavelet spectrum log-eigenvalues against scales
+%                   - hU: P x P univariate estimates and cross-estimates of Hurst exponents
+%                   - interceptU: P intercepts from the linear regressions of
+%                   wavelet spectrum diagonal coefficients against scales
+%             estbc:  structure related to a bias corrected multivarate estimation,
 %                   which is empty when Jref = 0
+%                   - WW: NJ cells containing P x P x Nj wavelet spectrum
+%                   across scales such that P < N
+%                   - lambdaj: NJ x P matrix containing the P corrected eigenvalues of the
+%                   wavelet spectrum WW at each scale
+%                   - lambda : P bias corrected multivariate estimates of Hurst exponents,
+%                   up to an additive constant
+%                   - lambdasort : P sorted bias correctedmultivariate estimates of Hurst 
+%                   exponents, up to an additive constant
+%                   - h: P bias corrected multivariate estimates of Hurst exponents
+%                   - lambdajBS: NJ x NB x P matrix containing NB resamples of the P corrected
+%                   eigenvalues of the wavelet spectrum WW at each scale
+%                   - lambdaBS : NB x P matrix containing the NB bootstrap resamples of 
+%                   bias corrected multivariate estimates of Hurst exponents, up to an 
+%                   additive constant
+%                   - hBS: NB x P matrix containing the NB bootstrap resamples of bias corrected 
+%                   multivariate Hurst exponent estimates
+%                   - intercept: P intercepts from the linear regressions of corrected wavelet
+%                   spectrum log-eigenvalues against scales
 %
 % Herwig Wendt, Patrice Abry and Charles-Gérard Lucas, ENS Lyon, 2020 - 2022
 
@@ -112,8 +165,6 @@ est.JMj = JMj ;
 est.j2j = j2j ; 
 
 Jref = min([Jref,j2j]);
-est.j2 = j2;
-est.Jref = Jref;
 
 % if Jref==0, don't divide and use standard estimation
 if Jref ~=0
@@ -169,13 +220,15 @@ for j = 1:JM
         clear lamb Vtmp
         for ib=1:nb
             tmp2=squeeze(WWbc{j}(:,:,ib));
-            [V0,Dtmpbc]=eig(tmp2) ;
+            [V0,Dtmpbc]=eig(tmp2);
             lamb(ib,:)=diag(Dtmpbc);
             lamb(ib,lamb(ib,:)<=0)=NaN;
             Vtmpbc(ib,:,:)=V0;
         end
         if nb>1
             lambdabc(j,:) = 2.^nanmean(log2(lamb));
+            %lambdabc(j,:) = nanmean(lamb);
+            %lambdabc(j,:) = 2.^nanmedian(log2(lamb));
             VVbc(:,:,j) = squeeze(mean(Vtmpbc)) ;
         else
             lambdabc(j,:) = lamb;
@@ -254,8 +307,8 @@ est.lambdaj = lambda ;
 
 if Jref ~= 0
     JJbc = 1:1:Jbc ; 
-    lambdabc(isnan(lambdabc)) = 1e-16;
-    estbc.lambdaj = lambdabc ; 
+    estbc.lambdaj = lambdabc;
+    
 end
 
 est.VVj = VV ;
@@ -268,13 +321,8 @@ for j=1:1:J
 end
 est.beta2 = mean(est.betaj(J-1:J)) ;   
 est.Nj = NJ ; 
-est.nj = nj ; 
-est.JM = JMtmp ; 
 est.CondNumber = CondNumber ; 
 est.RankS = rankS ;
-est.j1 = j1 ; 
-est.j2 = j2 ;
-est.wtype = wtype ;
 
 if NB, est.lambdajBS = lambdaBS; end
 [est.hU,est.interceptU]=Regrmat(log2(squeeze(abs(est.WW))),ones(P,P,length(NJ)),NJ,wtype, j1,j2);
@@ -282,15 +330,7 @@ est.hU = est.hU/2;
 
 
 if Jref ~= 0
-    estbc.VVj = VVbc ;
-    estbc.wavcov = wavcovbc ; 
-    estbc.VV = squeeze(VVbc(:,:,Jbc-2)) ; 
-    estbc.beta = estbc.VV(1,2)/estbc.VV(2,2) ; 
     estbc.WW = WWbc ;
-    for j=1:1:Jbc
-        estbc.betaj(j) = VVbc(1,2,j)/VVbc(2,2,j) ;
-    end
-    estbc.beta2 = mean(estbc.betaj(Jbc-1:Jbc)) ;  
     if NB, estbc.lambdajBS = lambdaBSbc; end
 end
 
@@ -305,15 +345,15 @@ for p=1:1:P
         tmpBS=log2(abs(squeeze(lambdaBS(p,:,:))));
         [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS(:,1:j2j(p)),ones(size(tmpBS,1),j2j(p)),NJ(1:j2j(p)),wtype, j1,j2j(p));
         est.lambdaBS(:,p) = (slopeBS)/2 ;  
+        est.hBS(:,p) = (slopeBS)/2  + 1/2 - params.FBM ;  
         est.meanBS(p)=mean(est.lambdaBS(:,p));
         est.varBS(p)=var(est.lambdaBS(:,p));
     end
 
 end
 est.h = est.lambda + 1/2 - params.FBM ;
-[~,est.sortid]=sort(est.lambda,'ascend');
 
-[est.lambdasort,sortid]=sort(est.lambda,'ascend');
+[est.lambdasort,~]=sort(est.lambda,'ascend');
 
 if Jref ~= 0
     for p=1:1:P
@@ -327,14 +367,14 @@ if Jref ~= 0
             tmpBS=log2(abs(squeeze(lambdaBSbc(p,:,:))));
             [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS(:,1:Jref),ones(size(tmpBS,1),Jref),NJ(1:Jref),wtype,j1,Jref);
             estbc.lambdaBS(:,p) = (slopeBS)/2 ;  
+            estbc.hBS(:,p) = (slopeBS)/2 + 1/2 - params.FBM ;  
             estbc.meanBS(p)=mean(estbc.lambdaBS(:,p));
             estbc.varBS(p)=var(estbc.lambdaBS(:,p));
         end
     end
 
-    [estbc.lambdasort,sortid]=sort(estbc.lambda,'ascend');
+    [estbc.lambdasort,~]=sort(estbc.lambda,'ascend');
     estbc.h = estbc.lambda + 1/2 - params.FBM ;
-    [~,estbc.sortid]=sort(estbc.lambda,'ascend');
 end
 
 if FigNum > 0 
