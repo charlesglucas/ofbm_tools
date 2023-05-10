@@ -1,4 +1,9 @@
 function [test] = BSHalfNormalTest(est,alpha)
+
+% returns the half normal pairwise testing procedure with parameter
+% estimating with a bootstrap procedure reproducing the global null 
+% hypothesis statistic
+%
 %  Input:     est:     structure of estimation method 
 %             alpha:   significance level of the tests   
 %

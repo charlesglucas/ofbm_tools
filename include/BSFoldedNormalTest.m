@@ -1,4 +1,8 @@
 function [test] = BSFoldedNormalTest(est,alpha)
+
+% returns the half normal pairwise testing procedure with parameter
+% estimating with a bootstrap procedure reproducing the observed statistic
+%
 %  Input:     est:     structure of estimation method 
 %             alpha:   significance level of the tests  
 %
