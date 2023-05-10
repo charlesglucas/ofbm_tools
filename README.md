@@ -64,19 +64,19 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
 
-The routine `OFBM_estimBC_BS_test` gives a rejection decision $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. These decisions naturally separate the estimates in different clusters.
-<p align="center">
-  <img align="center" width="500" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/naiveClustering.svg" style="max-width: 100%;">
-</p>
-  
-Different testing procedure are available. The main parameters contained in the output structure of this procedures are:
-  - `dec`, test decision;
-  - `pval`, test p-value.
+Different testing procedures are available: `BSChi2test`, `BSHalfNormalTest` and `BSFoldedNormalTest`. The main parameters contained in the output structure of this procedures are:
+  - `dec`, test decisions;
+  - `pval`, test p-values.
 
-Chi-squared test with a false discovery rate `alpha` to test if all the Hurst exponents are equal or not, described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
+Chi-squared test give a rejection decisions $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
 ```
 alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
 ```
+  
+Different pairwise testing procedure routines give a rejection decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. These decisions naturally separate the estimates in different clusters.
+<p align="center">
+  <img align="center" width="500" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/naiveClustering.svg" style="max-width: 100%;">
+</p>
 
 The clustering strategy, with a false discovery rate `alpha` for the multiple hypothesis test and the bootstrap-based test parameter estimation described in [Lucas et al., ICASSP 2022](https://hal.archives-ouvertes.fr/hal-03735481/document), can be run as follows:
 ```
