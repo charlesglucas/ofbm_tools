@@ -31,14 +31,14 @@ testChi2 = BSChi2test(estbc,alpha);
 disp(['P-value = ',sprintf('%.2f',testChi2.pval)])
 disp(['Decision = ',num2str(testChi2.dec)])
 
-%% Clustering based on M-1 half normal pairwise tests
+%% M-1 half normal pairwise tests reproducting global null hypothesis
 alpha = 0.05;
 testHN = BSHalfNormalTest(estbc,alpha);
 [nbclusterHN,clusterHN] = successiveTestClustering(testHN.decsortHocpw);
 disp(['Half normal tests:              clusters = [',num2str(clusterHN),'], ',num2str(nbclusterHN),' clusters'])
 disp(['Adapted Hurst exponents: [',sprintf(' %.2f ',averagedClusters(estbc.h,clusterHN)),']'])
 
-%% Clustering based on M-1 folded normal pairwise tests
+%% M-1 half normal pairwise tests reproducing pairwise nulle hypothesis
 alpha = 0.05;
 testFN = BSFoldedNormalTest(estbc,alpha);
 [nbclusterFN, clusterFN] = successiveTestClustering(testFN.decsortHocpw);
