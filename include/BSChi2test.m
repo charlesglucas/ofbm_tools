@@ -1,4 +1,7 @@
 function [test] = BSChi2test(est,alpha)
+
+% returns the chi-squared testing procedure 
+%
 %  Input:     est:     structure of estimation method 
 %             alpha:   significance level of the tests
 %
