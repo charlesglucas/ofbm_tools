@@ -4,10 +4,13 @@
 
 > **[Charles-Gérard Lucas](https://perso.ens-lyon.fr/charles.lucas), [Herwig Wendt](https://www.irit.fr/~Herwig.Wendt/), [Patrice Abry](https://perso.ens-lyon.fr/patrice.abry), [Gustavo Didier](http://www2.tulane.edu/~gdidier/),**
 *Multivariate time-scale bootstrap for testing the equality of selfsimilarity parameters,* 
-Colloque Francophone de Traitement du Signal et des Images (GRETSI). [Download]( https://hal.archives-ouvertes.fr/hal-03735529)
+Colloque Francophone de Traitement du Signal et des Images (GRETSI). [Download]( https://hal.archives-ouvertes.fr/hal-03735529/document)
 
 > **[Charles-Gérard Lucas](https://perso.ens-lyon.fr/charles.lucas), [Patrice Abry](https://perso.ens-lyon.fr/patrice.abry), [Herwig Wendt](https://www.irit.fr/~Herwig.Wendt/), [Gustavo Didier](http://www2.tulane.edu/~gdidier/),**
 *Counting the number of different scaling exponents in multivariate scale-free dynamics: Clustering by bootstrap in the wavelet,* International Conference on Acoustics, Speech, & Signal Processing (ICASSP). [Download](https://hal.archives-ouvertes.fr/hal-03735481/document)
+
+> **[Charles-Gérard Lucas](https://perso.ens-lyon.fr/charles.lucas), [Patrice Abry](https://perso.ens-lyon.fr/patrice.abry), [Herwig Wendt](https://www.irit.fr/~Herwig.Wendt/), [Gustavo Didier](http://www2.tulane.edu/~gdidier/),**
+*Bootstrap for testing the equality of selfsimilarity exponents across multivariate time series ,* European Signal Processing Conference (EUSIPCO). [Download]([https://hal.archives-ouvertes.fr/hal-03735481/document](https://hal.archives-ouvertes.fr/hal-03381950/document))
 
 ## Description
 OFBM Tools is a multivariate self-similarity analysis matlab package. It permits to estimate and count the values of scaling exponents $H_1,\ldots,H_M$ across $M$-variate time series modeled by an operator fractional Brownian motion (ofBm), which can be simplified into multivariate fractional Brownian motion ($M$-fBm) $\underline{B}_{\underline{\underline{H}},\Sigma}$. 
