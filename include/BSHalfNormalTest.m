@@ -36,7 +36,7 @@ for p1=1:1:P-1
 end
 
 % FDR correction
-PvalSeq = test.pvalsort;
+PvalSeq = test.pval;
 PvalSeq(P,:) = zeros(1,P);
 [dec,~,~,index] = fdrcorrection(diag(PvalSeq,1),alpha);
 for r=1:6, for k=1:P-1, decs(r,index(k)) = dec(r,k); end; end
