@@ -96,7 +96,6 @@ The clustering strategy, with a false discovery rate `alpha` for the multiple hy
 alpha = 0.05; testHN = BSHalfNormalTest(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(testHN.decHocpw);
 ```
-</details>
 
 The bootstrap-based test parameter estimation, described in [Lucas et al., GRETSI 2022](https://hal.archives-ouvertes.fr/hal-03735529), is available for the clustering method:
 ```
