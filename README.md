@@ -78,9 +78,9 @@ The main parameters contained in the output structure of this procedures are:
 </details>
 
 <details open>
-<summary><strong>Clustering based on M-1 pairwise test decisions</strong></summary>
+<summary><strong>Pairwise test decisions for equality of ordered exponents</strong></summary>
     
-Different pairwise testing procedure routines `BSHalfNormalTest` and `BSFoldedNormalTest` give a rejection decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. The main parameters contained in the output structure of this procedures are:
+Different pairwise testing procedure routines `BSHalfNormalTest` and `BSFoldedNormalTest` give $M-1$ rejection decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. The main parameters contained in the output structure of this procedures are:
   - `dec`, test decisions;
   - `pval`, test p-values;
   - `decHocpw`, test decisions correction according to Benjamini-Hochberg procedure;
