@@ -10,7 +10,7 @@ Colloque Francophone de Traitement du Signal et des Images (GRETSI). [Download](
 *Counting the number of different scaling exponents in multivariate scale-free dynamics: Clustering by bootstrap in the wavelet,* International Conference on Acoustics, Speech, & Signal Processing (ICASSP). [Download](https://hal.archives-ouvertes.fr/hal-03735481/document)
 
 ## Description
-OFBM Tools is a multivariate self-similarity analysis matlab package. It permits to estimate and count the values of scaling exponents $H_1,\ldots,H_M$ across $M$-variate time series modeled by $M$-variate fractional Brownian motion ($M$-fBm) $\underline{B}_{\underline{\underline{H}},\Sigma}$. 
+OFBM Tools is a multivariate self-similarity analysis matlab package. It permits to estimate and count the values of scaling exponents $H_1,\ldots,H_M$ across $M$-variate time series modeled by an operator fractional Brownian motion (ofBm), which can be simplified into $M$-variate fractional Brownian motion ($M$-fBm) $\underline{B}_{\underline{\underline{H}},\Sigma}$. 
 
 ![alt text](https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHestim.svg)
 
