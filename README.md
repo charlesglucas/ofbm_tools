@@ -49,7 +49,7 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
   - `NB`, number of bootstrap resampling;
   - `LB`, number of blocks for the bootstrap resampling.
 
-The main parameters contained in the structures `est` and `estbc` returned by OFBM_estimBC_BS are:
+The main parameters contained in the output structures `est` and `estbc` returned by OFBM_estimBC_BS are:
   - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
   - `est.h`, classical multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
@@ -72,8 +72,10 @@ The routine `OFBM_estimBC_BS_test` gives a rejection decision $d_{\alpha}^{(m)}$
 Chi-squared test with a false discovery rate `alpha` to test if all the Hurst exponents are equal or not, described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
 ```
 alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
-testChi2.pval
 ```
+The main parameters contained in the output structure `testChi2` are:
+  - `dec`, test decision;
+  - `pval`, test p-value.
 
 The clustering strategy, with a false discovery rate `alpha` for the multiple hypothesis test and the bootstrap-based test parameter estimation described in [Lucas et al., ICASSP 2022](https://hal.archives-ouvertes.fr/hal-03735481/document), can be run as follows:
 ```
