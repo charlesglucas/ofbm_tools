@@ -68,7 +68,7 @@ Different testing procedures are available: `BSChi2test`, `BSHalfNormalTest` and
   - `dec`, test decisions;
   - `pval`, test p-values.
 
-Chi-squared test give a rejection decisions $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
+Chi-squared test give rejection decisions $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
 ```
 alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
 ```
