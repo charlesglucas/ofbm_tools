@@ -58,22 +58,30 @@ The main parameters contained in the output structures `est` and `estbc` returne
 <details open>
   <summary><strong>Clustering</strong></summary>
 
+# Bootstrap resampling
 The count of the self-similarity exponents needs to run `OFBM_estimBC_BS` with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
-
-Different testing procedures are available: `BSChi2test`, `BSHalfNormalTest` and `BSFoldedNormalTest`. The main parameters contained in the output structure of this procedures are:
-  - `dec`, test decisions;
-  - `pval`, test p-values.
-
-Chi-squared test give rejection decisions $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
+  
+# Testing equality of all Hurst exponents
+Chi-squared test gives a rejection decision $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
 ```
 alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
 ```
+The main parameters contained in the output structure of this procedures are:
+  - `dec`, test decisions;
+  - `pval`, test p-values. 
   
-Different pairwise testing procedure routines give a rejection decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. These decisions naturally separate the estimates in different clusters.
+# Clustering based on $M-1$ pairwise test decisions
+Different pairwise testing procedure routines `BSHalfNormalTest` and `BSFoldedNormalTest` give a rejection decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. The main parameters contained in the output structure of this procedures are:
+  - `dec`, test decisions;
+  - `pval`, test p-values;
+  - `decHocpw`, test decisions correction according to Benjamini-Hochberg procedure;
+  - `decYekpw`, test decisions correction according to Benjamini-Yekutieli procedure;
+  - `decBFpw`, test decisions correction according to Bonferroni procedure;
+These decisions naturally separate the estimates in different clusters.
 <p align="center">
   <img align="center" width="500" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/naiveClustering.svg" style="max-width: 100%;">
 </p>
@@ -81,13 +89,13 @@ Different pairwise testing procedure routines give a rejection decisions $d_{\al
 The clustering strategy, with a false discovery rate `alpha` for the multiple hypothesis test and the bootstrap-based test parameter estimation described in [Lucas et al., ICASSP 2022](https://hal.archives-ouvertes.fr/hal-03735481/document), can be run as follows:
 ```
 alpha = 0.05; testHN = BSHalfNormalTest(estbc,alpha);
-[nbcluster,cluster] = successiveTestClustering(testHN.decsortHocpw);
+[nbcluster,cluster] = successiveTestClustering(testHN.decHocpw);
 ```
 
-Another bootstrap-based test parameter estimation, described in [Lucas et al., GRETSI 2022](https://hal.archives-ouvertes.fr/hal-03735529), is available for the clustering method:
+The bootstrap-based test parameter estimation, described in [Lucas et al., GRETSI 2022](https://hal.archives-ouvertes.fr/hal-03735529), is available for the clustering method:
 ```
 alpha = 0.05; testFN = BSFoldedNormalTest(estbc,alpha);
-[nbcluster,cluster] = successiveTestClustering(testFN.decsortHocpw);
+[nbcluster,cluster] = successiveTestClustering(testFN.decHocpw);
 ```
 
 Examples with synthetic $M$-fBm can also be found in the `examples` folder.
