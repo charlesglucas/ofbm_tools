@@ -81,5 +81,5 @@ alpha = 0.05; testFN = BSFoldedNormalTest(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(testFN.decsortHocpw);
 ```
 
-Examples with synthetic ofBm can also be found in the `examples` folder.
+Examples with synthetic $M$-fBm can also be found in the `examples` folder.
 </details>
