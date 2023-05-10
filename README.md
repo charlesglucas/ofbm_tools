@@ -21,8 +21,7 @@ This toolbox is designed to work with [**Matlab 2020b**](https://fr.mathworks.co
 
 ## Quick start
 
-<details open>
-  <summary><strong>Estimation</strong></summary>
+### Estimation
   
 The basic syntax to run `OFBM_estimBC_BS` is as follows:
 
