@@ -34,17 +34,16 @@ disp(['Decision = ',num2str(testChi2.dec)])
 %% M-1 half normal pairwise tests reproducting global null hypothesis
 alpha = 0.05;
 testHN = BSHalfNormalTest(estbc,alpha);
-[nbclusterHN,clusterHN] = successiveTestClustering(testHN.decsortHocpw);
+[nbclusterHN,clusterHN] = successiveTestClustering(testHN.decHocpw);
 disp(['Half normal tests:              clusters = [',num2str(clusterHN),'], ',num2str(nbclusterHN),' clusters'])
 disp(['Adapted Hurst exponents: [',sprintf(' %.2f ',averagedClusters(estbc.h,clusterHN)),']'])
 
 %% M-1 half normal pairwise tests reproducing pairwise nulle hypothesis
 alpha = 0.05;
 testFN = BSFoldedNormalTest(estbc,alpha);
-[nbclusterFN, clusterFN] = successiveTestClustering(testFN.decsortHocpw);
+[nbclusterFN, clusterFN] = successiveTestClustering(testFN.decHocpw);
 disp(['Folded normal tests:  clusters = [',num2str(clusterFN),'], ',num2str(nbclusterFN),' clusters'])
 disp(['Adapted Hurst exponents: [',sprintf(' %.2f ',averagedClusters(estbc.h,clusterFN)),']'])
-
 
 %% Graph-based clustering weighted using gaussian pairwise tests
 % tests
