@@ -66,7 +66,7 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 
 The routine `OFBM_estimBC_BS_test` gives decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. These decisions naturally separate the estimates in different clusters.
 <p align="center">
-  <img width="500" src="http://perso.ens-lyon.fr/charles.lucas/images/naiveClustering.svg" style="max-width: 100%;">
+  <img align="center" width="500" src="http://perso.ens-lyon.fr/charles.lucas/images/naiveClustering.svg" style="max-width: 100%;">
   <img align="center" width="1500" src="https://github.com/HoangTrieuVy/Deep-Unfolding-Networks-for-Image-Denoising/raw/main/examples/results_unfolded_ScCP_10081_noisy.jpg" style="max-width: 100%;">
 </p>
 
