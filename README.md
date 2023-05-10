@@ -68,7 +68,7 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 <details open>
 <summary><strong>Testing equality of all Hurst exponents</strong></summary>
 
-Chi-squared test gives a rejection decision $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
+Chi-squared test gives a rejection decision $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC0 2021](https://hal.science/hal-03381950/document), can be run as follows:
 ```
 alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
 ```
@@ -85,7 +85,8 @@ Different pairwise testing procedure routines `BSHalfNormalTest` and `BSFoldedNo
   - `pval`, test p-values;
   - `decHocpw`, test decisions correction according to Benjamini-Hochberg procedure;
   - `decYekpw`, test decisions correction according to Benjamini-Yekutieli procedure;
-  - `decBFpw`, test decisions correction according to Bonferroni procedure;
+  - `decBFpw`, test decisions correction according to Bonferroni procedure.
+  
 These decisions naturally separate the estimates in different clusters.
 <p align="center">
   <img align="center" width="500" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/naiveClustering.svg" style="max-width: 100%;">
