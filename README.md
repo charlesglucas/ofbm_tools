@@ -37,7 +37,7 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
   - `FBM`, type of the process:
     - 1 for operator fractional Brownian motion (ofBm);
     - 0 for operator fractional Gaussian noise (ofGn);
-  - `Nwt`, number of vanishing moments of the wavelet;
+  - `Nwt`, number of vanishing moments of the mother wavelet;
   - `j1`, first scale for analysis;
   - `j2`, last scale for analysis;
   - `Jref`, reference scale under which eigenvalues have same bias;
