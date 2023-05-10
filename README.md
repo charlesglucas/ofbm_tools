@@ -71,13 +71,14 @@ The routine `OFBM_estimBC_BS_test` gives decisions $d_{\alpha}^{(m)}$ for hypoth
 
 The clustering strategy, with a false discovery rate `alpha` for the multiple hypothesis test and the bootstrap-based test parameter estimation described in [Lucas et al., ICASSP 2022](https://hal.archives-ouvertes.fr/hal-03735481/document), can be run as follows:
 ```
-alpha = 0.05; estT = OFBM_estimBC_BS_test(estbc,alpha);
-[nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw);
+alpha = 0.05; testHN = BSHalfNormalTest(estbc,alpha);
+[nbcluster,cluster] = successiveTestClustering(testHN.decsortHocpw);
 ```
 
 Another bootstrap-based test parameter estimation, described in [Lucas et al., GRETSI 2022](https://hal.archives-ouvertes.fr/hal-03735529), is available for the clustering method:
 ```
-[nbcluster,cluster] = successiveTestClustering(estT.decsortHocpw_v2);
+alpha = 0.05; testFN = BSFoldedNormalTest(estbc,alpha);
+[nbcluster,cluster] = successiveTestClustering(testFN.decsortHocpw);
 ```
 
 Examples with synthetic ofBm can also be found in the `examples` folder.
