@@ -1,5 +1,4 @@
-%% estimate and cluster multivariate self-similarity exponents using
-%% a bootstrap-based testing procedure
+%% cluster multivariate sorted self-similarity exponents 
 % CGL, October 2021.
 
 clc
@@ -8,10 +7,9 @@ close all
 format compact
 
 addpath('../include/')
-%addpath(genpath('../WLBMF_tool/'))
 load('../data/result_estimbc_sizeH6.mat')
 
-%% Estimation and Bootstrap
+%% Estimation and bootstrap
 paramsEst.FBM = 1;
 paramsEst.Nwt = 2 ;
 paramsEst.j1 = 8 ;
@@ -24,23 +22,25 @@ paramsEst.LB = 2*paramsEst.Nwt;
 
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 
-%% Testing procedure
-alpha = 0.05;
-test = OFBM_estimBC_BS_test(estbc,alpha);
-
 disp(['H =                        [',sprintf(' %.1f ',params.H),']'])
-disp(['H estimate =               [',sprintf(' %.2f ',estbc.h),']'])
+disp(['H estimates =               [',sprintf(' %.2f ',estbc.h),']'])
 
-%% Clustering based on sorted pairwise tests
-[nbcluster, cluster] = successiveTestClustering(test.decsortHocpw);
-disp(['Sorted tests:              clusters = [',num2str(cluster),'], ',num2str(nbcluster),' clusters'])
+%% Testing if all exponents are equal or not
+alpha = 0.05;
+testChi2 = BSChi2test(estbc,alpha);
+disp(['P-value = ',sprintf('%.2f',testChi2.pval)])
+disp(['Decision = ',num2str(testChi2.dec)])
 
-%% Modified self-similarity exponent values
-disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(est.h,cluster)),']'])
+%% Clustering based on M-1 half normal pairwise tests
+alpha = 0.05;
+testHN = BSHalfNormalTest(estbc,alpha);
+[nbclusterHN,clusterHN] = successiveTestClustering(testHN.decsortHocpw);
+disp(['Sorted tests:              clusters = [',num2str(clusterHN),'], ',num2str(nbclusterHN),' clusters'])
+disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(est.h,clusterHN)),']'])
 
-%% Clustering based on alternative sorted pairwise tests
-[nbcluster_v2, cluster_v2] = successiveTestClustering(test.decsortHocpw_v2);
-disp(['Alternative sorted tests:  clusters = [',num2str(cluster_v2),'], ',num2str(nbcluster),' clusters'])
-
-%% Modified self-similarity exponent values
-disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(est.h,cluster_v2)),']'])
+%% Clustering based on M-1 folded normal pairwise tests
+alpha = 0.05;
+testFN = BSFoldedNormalTest(estbc,alpha);
+[nbclusterFN, clusterFN] = successiveTestClustering(testFN.decsortHocpw);
+disp(['Alternative sorted tests:  clusters = [',num2str(clusterFN),'], ',num2str(nbclusterFN),' clusters'])
+disp(['Adapted scaling exponents: [',sprintf(' %.2f ',averagedClusters(est.h,clusterFN)),']'])

@@ -7,7 +7,6 @@ close all
 format compact
 
 addpath('../include/')
-%addpath(genpath('../WLBMF_tool/'))
 load('../data/result_estimbc_sizeH6.mat')
 
 %% Estimation
