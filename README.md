@@ -52,7 +52,6 @@ The main parameters contained in the output structures `est` and `estbc` returne
   - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
   - `est.h`, classical multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
-</details>
 
 ### Clustering
   
@@ -64,7 +63,8 @@ The count of the self-similarity exponents needs to run `OFBM_estimBC_BS` with a
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
-  
+</details>
+
 <details open>
 <summary><strong>Testing equality of all Hurst exponents</strong></summary>
 
@@ -75,7 +75,8 @@ alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
 The main parameters contained in the output structure of this procedures are:
   - `dec`, test decisions;
   - `pval`, test p-values. 
-  
+</details>
+
 <details open>
 <summary><strong>Clustering based on $M-1$ pairwise test decisions</strong></summary>
     
@@ -95,6 +96,7 @@ The clustering strategy, with a false discovery rate `alpha` for the multiple hy
 alpha = 0.05; testHN = BSHalfNormalTest(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(testHN.decHocpw);
 ```
+</details>
 
 The bootstrap-based test parameter estimation, described in [Lucas et al., GRETSI 2022](https://hal.archives-ouvertes.fr/hal-03735529), is available for the clustering method:
 ```
