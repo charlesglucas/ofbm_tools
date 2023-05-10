@@ -55,17 +55,20 @@ The main parameters contained in the output structures `est` and `estbc` returne
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
 </details>
 
+### Clustering
+  
 <details open>
-  <summary><strong>Clustering</strong></summary>
-
-### Bootstrap resampling
+<summary><strong>Bootstrap resampling</strong></summary>
+  
 The count of the self-similarity exponents needs to run `OFBM_estimBC_BS` with adapted parameters `paramsEst` for the bootstrap procedure:
 ```
 paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt; 
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst) ;
 ```
   
-### Testing equality of all Hurst exponents
+<details open>
+<summary><strong>Testing equality of all Hurst exponents</strong></summary>
+
 Chi-squared test gives a rejection decision $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC 2021](https://hal.science/hal-03381950/document), can be run as follows:
 ```
 alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
@@ -74,7 +77,9 @@ The main parameters contained in the output structure of this procedures are:
   - `dec`, test decisions;
   - `pval`, test p-values. 
   
-### Clustering based on $M-1$ pairwise test decisions
+<details open>
+<summary><strong>Clustering based on $M-1$ pairwise test decisions</strong></summary>
+    
 Different pairwise testing procedure routines `BSHalfNormalTest` and `BSFoldedNormalTest` give a rejection decisions $d_{\alpha}^{(m)}$ for hypothesis $H_m=H_{m+1}$ with a false discovery rate $\alpha$. The main parameters contained in the output structure of this procedures are:
   - `dec`, test decisions;
   - `pval`, test p-values;
