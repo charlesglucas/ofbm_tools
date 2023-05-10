@@ -103,6 +103,9 @@ The bootstrap-based test parameter estimation, described in [Lucas et al., GRETS
 alpha = 0.05; testFN = BSFoldedNormalTest(estbc,alpha);
 [nbcluster,cluster] = successiveTestClustering(testFN.decHocpw);
 ```
+</details>
+
+## Examples
 
 Examples with synthetic $M$-fBm can also be found in the `examples` folder.
-</details>
+
