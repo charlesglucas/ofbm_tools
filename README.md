@@ -68,7 +68,7 @@ paramsEst.NB = 500; paramsEst.LB = 2*params.Nwt;
 <details open>
 <summary><strong>Testing equality of all Hurst exponents</strong></summary>
 
-Chi-squared test gives a rejection decision $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC0 2021](https://hal.science/hal-03381950/document), can be run as follows:
+The chi-squared test giving a rejection decision $d_{\alpha}$ for hypothesis $H_1=\ldots=H_M$ with a false discovery rate $\alpha$, as described in [Lucas et al., EUSIPC0 2021](https://hal.science/hal-03381950/document), can be run as follows:
 ```
 alpha = 0.05; testChi2 = BSChi2test(estbc,alpha);
 ```
