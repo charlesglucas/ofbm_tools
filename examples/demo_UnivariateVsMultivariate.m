@@ -107,7 +107,7 @@ markersize = 12 ;
 linewidth = 2 ; 
 fontsize = 20 ;
 
-fig = figure(3) ; clf ;    
+fig = figure(4) ; clf ;    
 for p = 1:1:P
     JJ =1:JMM ;
     JJJ = paramsEst.j1:paramsEst.j2 ;
