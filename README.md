@@ -41,8 +41,8 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
     - 1 for operator fractional Brownian motion (ofBm);
     - 0 for operator fractional Gaussian noise (ofGn);
   - `Nwt`, number of vanishing moments of the Daubechies mother wavelet;
-  - `j1`, first scale for analysis;
-  - `j2`, last scale for analysis;
+  - `j1`, first octave for analysis;
+  - `j2`, last octave for analysis;
   - `Jref`, reference scale under which eigenvalues have same bias;
   - `wtype`, kind of weighting used in the linear regressions:
     - 0 for no weighting  (i.e., uniform weights);
@@ -58,7 +58,7 @@ The main parameters contained in the output structures `est` and `estbc` returne
   - `est.h`, multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
 
-Here is an exemple of analysis. On the left, the univariate analyse based on linear regressions on wavelet spectrum log-diagonal coefficients $\log_2 S_{m,m}(2^j)$. On the right, the multivariate analysis based on wavelet spectrum log-eigenvalues $\log_2 \lambda_{m}(2^j)$.
+Here is an exemple of analysis. The univariate analyse (on the left) based on linear regressions on wavelet spectrum log-diagonal coefficients $\log_2 S_{m,m}(2^j)$ across scales $2^{j_1}, \ldots, 2^{j_2}$. As for the multivariate analysis (on the right), the linear regressions are performed on on wavelet spectrum log-eigenvalues $\log_2 \lambda_{m}(2^j)$.
 <p align="center">
   <img align="center" width="350" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/univariateHestim.svg" style="max-width: 100%;">
   <img align="center" width="350" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHestim.svg" style="max-width: 100%;">
