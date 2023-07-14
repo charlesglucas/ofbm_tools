@@ -58,9 +58,10 @@ The main parameters contained in the output structures `est` and `estbc` returne
   - `est.h`, multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
 
+Here is an exemple of analysis. On the left, the univariate analyse based on linear regressions on wavelet spectrum log-diagonal coefficients $\log_2 S_{m,m}(2^j)$. On the right, the multivariate analysis based on wavelet spectrum log-eigenvalues $\log_2 \lambda_{m}(2^j)$.
 <p align="center">
-  <img align="center" width="250" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/univariateHestim.svg" style="max-width: 100%;">
-  <img align="center" width="250" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHestim.svg" style="max-width: 100%;">
+  <img align="center" width="350" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/univariateHestim.svg" style="max-width: 100%;">
+  <img align="center" width="350" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHestim.svg" style="max-width: 100%;">
 </p>
 
 ### Clustering
