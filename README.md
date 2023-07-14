@@ -52,6 +52,8 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
   - `LB`, number of blocks for the bootstrap resampling.
 
 The main parameters contained in the output structures `est` and `estbc` returned by OFBM_estimBC_BS are:
+  - `est.WW`, wavelet spectrum (diagonal coefficients) and coherence (off-diagonal coefficients)
+  - `estbc.lambdaj`, eigenvalue estimates for bias corrected estimation.
   - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
   - `est.h`, multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
