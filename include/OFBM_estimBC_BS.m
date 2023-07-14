@@ -75,7 +75,7 @@ function [est,estbc] = OFBM_estimBC_BS(data,params)
 %                   wavelet spectrum WW at each scale
 %                   - lambda : P bias corrected multivariate estimates of Hurst exponents,
 %                   up to an additive constant
-%                   - lambdasort : P sorted bias correctedmultivariate estimates of Hurst 
+%                   - lambdasort : P sorted bias corrected multivariate estimates of Hurst 
 %                   exponents, up to an additive constant
 %                   - h: P bias corrected multivariate estimates of Hurst exponents
 %                   - lambdajBS: NJ x NB x P matrix containing NB resamples of the P corrected
@@ -346,8 +346,6 @@ for p=1:1:P
         [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS(:,1:j2j(p)),ones(size(tmpBS,1),j2j(p)),NJ(1:j2j(p)),wtype, j1,j2j(p));
         est.lambdaBS(:,p) = (slopeBS)/2 ;  
         est.hBS(:,p) = (slopeBS)/2  + 1/2 - params.FBM ;  
-        est.meanBS(p)=mean(est.lambdaBS(:,p));
-        est.varBS(p)=var(est.lambdaBS(:,p));
     end
 
 end
@@ -368,8 +366,6 @@ if Jref ~= 0
             [slopeBS,Vzeta,Q,interceptBS]=MFA_BS_regrmat(tmpBS(:,1:Jref),ones(size(tmpBS,1),Jref),NJ(1:Jref),wtype,j1,Jref);
             estbc.lambdaBS(:,p) = (slopeBS)/2 ;  
             estbc.hBS(:,p) = (slopeBS)/2 + 1/2 - params.FBM ;  
-            estbc.meanBS(p)=mean(estbc.lambdaBS(:,p));
-            estbc.varBS(p)=var(estbc.lambdaBS(:,p));
         end
     end
 
@@ -397,6 +393,7 @@ if FigNum > 0
                     xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize2) ;
                     ylabel(['$C_{',num2str(p),num2str(m),'}(2^j)$'],'Interpreter','Latex','FontSize',fontsize2)
                     pbaspect([1.1,1,1])
+                    set(gca,'LineWidth',linewidth2)
                 else
                     plot(log2(abs(squeeze(est.WW(p,m,:)))),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2) ; 
                     if NB, errorbar(log2(abs(squeeze(est.WW(p,m,:)))),squeeze(ic(p,m,:)),'ob-','MarkerSize',markersize2,'LineWidth',linewidth2); end
@@ -405,12 +402,14 @@ if FigNum > 0
                     xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize2) ;
                     ylabel(['$\log_2 S_{',num2str(p),num2str(p),'}(2^j)$'],'Interpreter','Latex','FontSize',fontsize2)
                     pbaspect([1.1,1,1])
+                    set(gca,'LineWidth',linewidth2)
                 end
             end
         end
         clear Vf
         Vf(1) = 0 ; Vf(2) = JMM+1 ; Vf(3) = min(V(:,3)) ; Vf(4) = max(V(:,4)) ; 
         for p = 1:1:P, subplot(P,P,(p-1)*P+p) ; axis(Vf)  ; end
+        fig.Position = [57 160 834 643];
         sgtitle('Wavelet spectrum','Interpreter','Latex')
     end
 
