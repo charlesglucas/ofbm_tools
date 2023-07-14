@@ -53,7 +53,7 @@ The parameters to take into account in the input structure `paramsEst` of OFBM_e
 
 The main parameters contained in the output structures `est` and `estbc` returned by OFBM_estimBC_BS are:
   - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
-  - `est.h`, classical multivariate self-similarity exponent estimates;
+  - `est.h`, multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
 
 ### Clustering
