@@ -15,7 +15,7 @@ Colloque Francophone de Traitement du Signal et des Images (GRETSI). [Download](
 ## Description
 OFBM Tools is a multivariate self-similarity analysis matlab package. It permits to estimate and count the values of scaling exponents $H_1,\ldots,H_M$ across $M$-variate time series modeled by an operator fractional Brownian motion (ofBm), which can be simplified into multivariate fractional Brownian motion ($M$-fBm) $\underline{B}_{\underline{\underline{H}},\Sigma}$. 
 
-![alt text](https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHestim.svg)
+![alt text](https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHmodel.svg)
 
 The estimation is based on linear regressions of wavelet spectrum eigenvalues across scales. A de-biased estimator based on the computation of wavelet spectra from equal number of wavelet coefficients is designed. To count the scaling exponents, a clustering strategy is derived from parametric pairwise hypothesis tests between successive ordered estimates: two bootstrap-based estimation methods are proposed for the computation of the test parameters.
 
@@ -57,6 +57,11 @@ The main parameters contained in the output structures `est` and `estbc` returne
   - `est.hU`, matrix of univariate-like self-similarity exponent and cross-exponent estimates;
   - `est.h`, multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
+
+<p align="center">
+  <img align="center" width="250" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/univariateHestim.svg" style="max-width: 100%;">
+  <img align="center" width="250" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHestim.svg" style="max-width: 100%;">
+</p>
 
 ### Clustering
   
