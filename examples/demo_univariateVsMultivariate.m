@@ -53,7 +53,7 @@ clear Vf
 Vf(1) = 0 ; Vf(2) = JMM+1 ; Vf(3) = min(V(:,3)) ; Vf(4) = max(V(:,4)) ; 
 for p = 1:1:P, subplot(P,P,(p-1)*P+p) ; axis(Vf)  ; end
 fig.Position = [57 160 834 643];
-sgtitle('Wavelet spectrum','Interpreter','Latex')
+sgtitle('Log-wavelet spectrum (diagonal) and wavelet coherence (off-diagonal)','Interpreter','Latex')
 
 
 %% Univariate analysis
