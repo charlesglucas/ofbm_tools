@@ -58,7 +58,7 @@ The main parameters contained in the output structures `est` and `estbc` returne
   - `est.h`, multivariate self-similarity exponent estimates;
   - `estbc.h`, bias corrected multivariate self-similarity exponent estimates.
 
-Here is an exemple of analysis on a synthetic $M=6$-fBm with analysis octaves (j_1,j_2)=(5,10). The univariate analyse (on the left) based on linear regressions on wavelet spectrum log-diagonal coefficients $\log_2 S_{m,m}(2^j)$ across scales $2^{j_1}, \ldots, 2^{j_2}$. As for the multivariate analysis (on the right), the linear regressions are performed on on wavelet spectrum log-eigenvalues $\log_2 \lambda_{m}(2^j)$.
+Here is an exemple of analysis on a synthetic $M=6$-fBm with analysis octaves $(j_1,j_2)=(5,10)$. The univariate analyse (on the left) based on linear regressions on wavelet spectrum log-diagonal coefficients $\log_2 S_{m,m}(2^j)$ across scales $2^{j_1}, \ldots, 2^{j_2}$. As for the multivariate analysis (on the right), the linear regressions are performed on on wavelet spectrum log-eigenvalues $\log_2 \lambda_{m}(2^j)$.
 <p align="center">
   <img align="center" width="350" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/univariateHestim.svg" style="max-width: 100%;">
   <img align="center" width="350" src="https://github.com/charlesglucas/ofbm_tools/blob/main/images/multivariateHestim.svg" style="max-width: 100%;">
