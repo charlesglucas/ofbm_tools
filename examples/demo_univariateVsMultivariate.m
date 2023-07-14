@@ -11,8 +11,8 @@ load('../data/result_estimbc_sizeH6.mat')
 P = size(data,1);
 
 %% Run analysis
-paramsEst.j1 = 4;
-paramsEst.j2 = 8;
+paramsEst.j1 = 5;
+paramsEst.j2 = 10;
 paramsEst.Jrefplot = 1;
 
 [est,estbc] = OFBM_estimBC_BS(data,paramsEst);
@@ -96,7 +96,7 @@ for p = 1:1:P
     xticks(1:2:JMM); xlim([.5 JMM+.5])
 end
 xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
-ylabel('$\log_2 \lambda_{m,m}(2^j)$','Interpreter','Latex','FontSize',fontsize)
+ylabel('$\log_2 \lambda_{m}(2^j)$','Interpreter','Latex','FontSize',fontsize)
 legend(hh,{'Linear regression','Analysis scales'},'location','best','Interpreter','Latex')
 set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
 
@@ -117,7 +117,7 @@ for p = 1:1:P
 end
 xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
 ylabel('Structure functions','Interpreter','Latex','FontSize',fontsize)
-legend(hh,{'$\log_2 S_{mm}(2^j)$','$\log_2 \lambda_{mm}(2^j)$'},'location','best','Interpreter','Latex')
+legend(hh,{'$\log_2 S_{m,m}(2^j)$','$\log_2 \lambda_{m}(2^j)$'},'location','best','Interpreter','Latex')
 set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
 
 disp(['Multivariate H estimates:   [',num2str(estbc.h),']'])
