@@ -165,6 +165,7 @@ est.JMj = JMj ;
 est.j2j = j2j ; 
 
 Jref = min([Jref,j2j]);
+est.Jref = Jref;
 
 % if Jref==0, don't divide and use standard estimation
 if Jref ~=0
@@ -261,7 +262,7 @@ if Jref ~= 0
             end
             try
             if ndiv>1
-                lambdaBSbc(:,nb,j) = 2.^squeeze(mean(log2(lambBSbc),2));
+                lambdaBSbc(:,nb,j) = 2.^squeeze(nanmean(log2(lambBSbc),2));
             else
                 lambdaBSbc(:,nb,j) = lambBSbc;
             end
@@ -417,7 +418,6 @@ if FigNum > 0
     for nb=1:NB, for j = 1:JM, dWWBS(j,:,nb) = diag(WWBS(:,:,nb,j)); end; end
     if NB, ic = 1.96/sqrt(NB)*std(log2(abs(dWWBS)),[],3); end
     hh = figure(FigNum+1) ; clf ; 
-    set(gca,'FontSize',fontsize) ;   
     for p = 1:1:P
         JJ =1:JMM ;
         JJJ = j1:j2 ;
@@ -432,11 +432,10 @@ if FigNum > 0
     end
     xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
     ylabel('$\log_2 S_{mm}(2^j)$','Interpreter','Latex','FontSize',fontsize)
-    set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+    set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
 
     if NB, ic = 1.96/sqrt(NB)*squeeze(std(log2(lambdaBS),[],2))'; end
     hh = figure(FigNum+2) ; clf ; 
-    set(gca,'FontSize',fontsize) ; 
     for p = 1:1:P
         JJ =1:JMj(p) ;
         JJJ = j1:j2j(p) ;
@@ -451,11 +450,10 @@ if FigNum > 0
     end
     xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
     ylabel('$\log_2 \lambda_m(2^j)$','Interpreter','Latex','FontSize',fontsize)
-    set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+    set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
 
     if Jref==0
         hh = figure(FigNum+3) ; clf ; 
-        set(gca,'FontSize',fontsize) ; 
         for p = 1:1:P
             JJ =1:JMj(p) ;
             plot(JJ,log2(lambda(JJ,p)),'ob-','MarkerSize',markersize,'LineWidth',linewidth) ; grid on ; hold on 
@@ -463,11 +461,10 @@ if FigNum > 0
         end
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)$','Interpreter','Latex','FontSize',fontsize)
-        set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+        set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
     else
         if NB, ic = 1.96/sqrt(NB)*squeeze(std(log2(lambdaBSbc),[],2))'; end
         hh = figure(FigNum+3) ; clf ; 
-        set(gca,'FontSize',fontsize) ; 
         for p = 1:1:P
             JJ =1:JMj(p) ;
             JJJ = j1:j2j(p) ;
@@ -482,10 +479,9 @@ if FigNum > 0
         end
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)$','Interpreter','Latex','FontSize',fontsize)
-        set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+        set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
 
-        hh = figure(FigNum+4) ; clf ; 
-        set(gca,'FontSize',fontsize) ; 
+        hh = figure(FigNum+4) ; clf ;  
         for p = 1:1:P
             JJ =1:JMj(p) ;
             plot(log2(abs(squeeze(est.WW(p,p,JJ)))),'ok-','MarkerSize',markersize,'LineWidth',linewidth) ;  grid on ; hold on ;
@@ -494,10 +490,9 @@ if FigNum > 0
         end
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)$','Interpreter','Latex','FontSize',fontsize)
-        set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+        set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
 
         hh = figure(FigNum+5) ; clf ; 
-        set(gca,'FontSize',fontsize) ; 
         for p = 1:1:P
             JJ =1:JMj(p) ;
             plot(log2(abs(squeeze(est.WW(p,p,JJ))))-log2(abs(squeeze(est.WW(p,p,Jrefplot)))),'ok-','MarkerSize',markersize,'LineWidth',linewidth) ;  grid on ; hold on ;
@@ -506,7 +501,7 @@ if FigNum > 0
         end
         xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
         ylabel('$\log_2 \lambda_m(2^j)  - \log_2 \lambda_m(2^{\textrm{Jrefplot}})$','Interpreter','Latex','FontSize',fontsize)
-        set(gca,'FontSize',fontsize,'TickLabelInterpreter','Latex')
+        set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
     end
 end
 
