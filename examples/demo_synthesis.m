@@ -8,8 +8,7 @@ format compact
 
 addpath('../includeSynthesis/')
 
-%%
-% synthesis parameters
+%% synthesis parameters
 params.H = [.6 .6 .6 .8 .8 .8];
 P = length(params.H) ; params.P = P ; 
 %params.W = RandOrthMat(P);

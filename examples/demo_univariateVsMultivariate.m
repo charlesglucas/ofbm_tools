@@ -119,5 +119,3 @@ xlabel('$j = \log_2 2^j$','Interpreter','Latex','FontSize',fontsize) ;
 ylabel('Structure functions','Interpreter','Latex','FontSize',fontsize)
 legend(hh,{'$\log_2 S_{m,m}(2^j)$','$\log_2 \lambda_{m}(2^j)$'},'location','best','Interpreter','Latex')
 set(gca,'FontSize',fontsize,'LineWidth',linewidth,'TickLabelInterpreter','Latex')
-
-disp(['Multivariate H estimates:   [',num2str(estbc.h),']'])
