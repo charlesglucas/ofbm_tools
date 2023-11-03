@@ -1,21 +1,23 @@
 function [test] = BSGaussianTest(est,alpha)
+
+% returns the gaussian pairwise testing procedure 
+%
 %  Input:     est:     structure of estimation method 
 %             alpha:   significance level of the tests  
 %
 %  Output:    test:    structure of half normal testing procedures
-%                       - decsort : pairwise decisions
-%                       - pvalsort : pariwise p-values
-%                       - decsortBFpw : pairwise decisions corrected with
+%                       - dec : pairwise decisions
+%                       - pval : pariwise p-values
+%                       - decBFpw : pairwise decisions corrected with
 %                       Bonferroni procedures
-%                       - decsortHocpw : pariwise p-values corrected with
+%                       - decHocpw : pariwise p-values corrected with
 %                       Benjamini-Hochberg procedures
-%                       - decsortYekpw : pairwise decisions corrected with
+%                       - decYekpw : pairwise decisions corrected with
 %                       Benjamini-Yekutieli procedures
 %
 % Charles-Gérard Lucas, ENS Lyon, 2021
 
 P = length(est.h);
-NB = size(est.lambdaBS,1);
 tc=norminv(1-alpha/2);
 
 for p1=1:1:P-1
@@ -27,7 +29,7 @@ for p1=1:1:P-1
     end
 end
 
-% FDR correction for normal test
+% FDR correction
 k = 0; for k1=1:P-1, for k2=k1+1:P, k = k+1; PvalSeq2(k) = test.pval(k1,k2); end; end
 [dec,~,~,index] = fdrcorrection(PvalSeq2,alpha);
 for r=1:6, for k=1:P*(P-1)/2, decs2(r,index(k)) = dec(r,k); end; end

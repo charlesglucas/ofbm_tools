@@ -4,10 +4,12 @@ function [nbcluster, cluster, eigenvalues] = autoClustering(L)
 %
 % Charles-Gérard Lucas, ENS Lyon, 2021
 
+% compute eigenvalues and eigenvactors of the Laplacian
 [V,DV] = eig(L); 
-% number of clusters with maximum eigengap
 [eigenvalues,id] = sort(diag(DV));
 vec = V(:,id);
+
+% number of clusters with maximum eigengap
 if eigenvalues(end) ~= 0
     [~,nbcluster] = max(diff(eigenvalues));
 else 

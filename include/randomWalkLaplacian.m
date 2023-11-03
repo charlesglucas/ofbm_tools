@@ -1,6 +1,6 @@
 function [L,Lrw,Lsym] = randomWalkLaplacian(W)
 % returns the combinatorial Laplacian L and the random walk Laplacian Lrw
-% of a graph with adjency matrix W
+% of a graph with similarity matrix W
 %
 % Charles-Gérard Lucas, ENS Lyon, 2021
 

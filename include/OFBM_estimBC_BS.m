@@ -264,6 +264,7 @@ if Jref ~= 0
             if ndiv>1
                 lambdaBSbc(:,nb,j) = 2.^squeeze(nanmean(log2(lambBSbc),2));
             else
+                lambBSbc(isnan(lambBSbc))=1e-16;
                 lambdaBSbc(:,nb,j) = lambBSbc;
             end
             catch

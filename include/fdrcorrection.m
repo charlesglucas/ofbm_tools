@@ -23,7 +23,7 @@ end
 
 for j=2:3
 tmp = dec(j,:); idx = find(tmp==1);
-if ~isempty(idx), dec(j+3,1:idx(end)) = ones(1,idx(end)); end
+if ~isempty(idx), dec(j,1:idx(end)) = ones(1,idx(end)); end
 end
 
 end
