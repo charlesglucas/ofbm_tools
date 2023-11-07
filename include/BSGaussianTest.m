@@ -6,14 +6,21 @@ function [test] = BSGaussianTest(est,alpha)
 %             alpha:   significance level of the tests  
 %
 %  Output:    test:    structure of half normal testing procedures
-%                       - dec : pairwise decisions
-%                       - pval : pariwise p-values
-%                       - decBFpw : pairwise decisions corrected with
-%                       Bonferroni procedures
-%                       - decHocpw : pariwise p-values corrected with
-%                       Benjamini-Hochberg procedures
-%                       - decYekpw : pairwise decisions corrected with
-%                       Benjamini-Yekutieli procedures
+%                       - SBE: estimated test parameter
+%                       - pval: pairwise p-values
+%                       - decpw: pairwise decisions
+%                       - decBFpw: pairwise decisions corrected with
+%                       Bonferroni procedure
+%                       - decHocpw: pairwise decisions corrected with
+%                       Benjamini-Hochberg procedure
+%                       - decYekpw: pairwise decisions corrected with
+%                       Benjamini-Yekutieli procedure
+%                       - decNC: decision without correction
+%                       - decBF: decision from Bonferroni correction
+%                       - decHoc: decision from Benjamini-Hochberg
+%                       correction
+%                       - decYek: decision from Benjamini-Yekutieli
+%                       correction
 %
 % Charles-Gérard Lucas, ENS Lyon, 2021
 
@@ -22,9 +29,8 @@ tc=norminv(1-alpha/2);
 
 for p1=1:1:P-1
     for p2=p1+1:P
-        test.VarDelta(p1,p2)=var(est.lambdaBS(:,p1)-est.lambdaBS(:,p2));
-        test.SBE(p1,p2)=sqrt(test.VarDelta(p1,p2));
-        test.dec(p1,p2)=abs(est.lambda(p1)-est.lambda(p2))>tc*test.SBE(p1,p2);
+        VarDelta(p1,p2)=var(est.lambdaBS(:,p1)-est.lambdaBS(:,p2));
+        test.SBE(p1,p2)=sqrt(VarDelta(p1,p2));
         test.pval(p1,p2)=2*(1-normcdf(abs(est.lambda(p1)-est.lambda(p2))/test.SBE(p1,p2)));
     end
 end
@@ -43,7 +49,7 @@ for k1=1:P-1
         test.decYekpw(k1,k2) = decs2(3,k);
     end
 end
-test.dec2 = pairwiseTestProduct(decs2(1,:));
+test.decNC = pairwiseTestProduct(decs2(1,:));
 test.decBF = pairwiseTestProduct(decs2(4,:));
 test.decHoc = pairwiseTestProduct(decs2(2,:));
 test.decYek = pairwiseTestProduct(decs2(3,:));
