@@ -7,13 +7,13 @@ close all
 format compact
 
 addpath('../include/')
-load('../data/result_estimbc_sizeH6.mat')
+load('../data/result_estimbc_sizeH64.mat')
 
 %% Estimation and bootstrap
 paramsEst.FBM = 1;
 paramsEst.Nwt = 2;
-paramsEst.j1 = 8;
-paramsEst.j2 = 11;
+paramsEst.j1 = 2;
+paramsEst.j2 = 4;
 paramsEst.FigNum = 1;
 paramsEst.wtype = 1;
 paramsEst.Jref = paramsEst.j2;
@@ -27,10 +27,12 @@ disp(['H estimates =               [',sprintf(' %.2f ',estbc.h),']'])
 
 %% Testing if all exponents are equal or not (Hartigan's test)
 alpha = .05;
-BSdipTest(estbc,alpha)
+test = BSdipTest(estbc,alpha);
+disp(['P-value: ',num2str(test.pval)])
+disp(['Decision: ',num2str(test.dec)])
  
 %% Couting modes (Silvermans's test)
 alpha = .05;
-[nbm,silv,pvalS] = SilvermanModeEstim(estbc.h,alpha);
-clusters = kmeans(estbc.h',nbm);
-disp([num2str(nbm),' clusters',': [',num2str(clusters'),']'])
+[nbc,stats,pvals] = SilvermanModeEstim(estbc.h,alpha);
+clusters = kmeans(estbc.h',nbc);
+disp([num2str(nbc),' clusters',': [',num2str(clusters'),']'])
